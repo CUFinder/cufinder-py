@@ -1,7 +1,5 @@
 """DTC - Domain to Company Name service."""
 
-from urllib.parse import urlparse
-
 from ..models.responses import DtcResponse
 from .base import BaseService
 
@@ -29,16 +27,6 @@ class Dtc(BaseService):
             print(company.company_name)  # 'Example Corp'
             ```
         """
-        self.validate_required(company_website, "company_website")
-
-        # Basic URL validation
-        try:
-            parsed_url = urlparse(company_website.strip())
-            if not parsed_url.scheme or not parsed_url.netloc:
-                raise ValueError("Invalid website URL format")
-        except Exception:
-            raise ValueError("Invalid website URL format")
-
         try:
             response_data = self.client.post("/dtc", {
                 "company_website": company_website.strip(),

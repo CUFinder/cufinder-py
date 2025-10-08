@@ -21,8 +21,6 @@ class Epp(BaseService):
         Returns:
             EppResponse: Enriched person and company data
         """
-        self.validate_required(linkedin_url, "linkedin_url")
-
         try:
             response_data = self.client.post("/epp", {
                 "linkedin_url": linkedin_url.strip(),

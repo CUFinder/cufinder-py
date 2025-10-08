@@ -1,7 +1,5 @@
 """DTE - Company Email Finder service."""
 
-from urllib.parse import urlparse
-
 from ..models.responses import DteResponse
 from .base import BaseService
 
@@ -29,16 +27,6 @@ class Dte(BaseService):
             print(emails.emails)  # ['contact@example.com', 'info@example.com']
             ```
         """
-        self.validate_required(company_website, "company_website")
-
-        # Basic URL validation
-        try:
-            parsed_url = urlparse(company_website.strip())
-            if not parsed_url.scheme or not parsed_url.netloc:
-                raise ValueError("Invalid website URL format")
-        except Exception:
-            raise ValueError("Invalid website URL format")
-
         try:
             response_data = self.client.post("/dte", {
                 "company_website": company_website.strip(),
