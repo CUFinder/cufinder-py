@@ -1,6 +1,6 @@
 # Cufinder Python SDK Changelog
 
-## 1.1.0 (Current)
+## 0.1.0
 
 #### Features
 - Initial release of the Cufinder Python SDK

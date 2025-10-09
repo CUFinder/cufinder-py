@@ -73,7 +73,7 @@ class CufinderClient:
         self.session.headers.update({
             "x-api-key": api_key,
             "Content-Type": "application/x-www-form-urlencoded",
-            "User-Agent": f"cufinder-py/1.1.0",
+            "User-Agent": f"cufinder-py/0.1.0",
         })
 
     def _generate_request_id(self) -> str:

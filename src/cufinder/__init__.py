@@ -29,7 +29,7 @@ from .exceptions import (
 from .models import *
 from .services import *
 
-__version__ = "0.0.1"
+__version__ = "0.1.0"
 __author__ = "CUFinder Team"
 __email__ = "support@cufinder.io"
 
