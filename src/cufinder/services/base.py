@@ -1,6 +1,6 @@
 """Base service class for all Cufinder API services."""
 
-from ..client import CUFinderClient
+from ..client import CufinderClient
 from ..exceptions import CufinderError
 
 
@@ -11,14 +11,35 @@ class BaseService:
     Follows SOLID principles by providing a single responsibility base class.
     """
 
-    def __init__(self, client: CUFinderClient):
+    def __init__(self, client: CufinderClient):
         """
         Initialize the base service.
         
         Args:
-            client: The CUFinderClient instance
+            client: The CufinderClient instance
         """
         self.client = client
+
+    def parse_response(self, response_data: dict, response_class):
+        """
+        Parse API response with data wrapper.
+        
+        Args:
+            response_data: Raw API response
+            response_class: Response model class
+            
+        Returns:
+            Parsed response model
+        """
+        if "data" in response_data:
+            data = response_data["data"]
+            # The data object already contains query, credit_count, etc.
+            if "meta_data" in response_data:
+                data["meta_data"] = response_data["meta_data"]
+            return response_class.from_dict(data)
+        else:
+            return response_class.from_dict(response_data)
+
 
     def handle_error(self, error: Exception, service_name: str) -> CufinderError:
         """

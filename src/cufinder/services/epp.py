@@ -26,6 +26,6 @@ class Epp(BaseService):
                 "linkedin_url": linkedin_url.strip(),
             })
 
-            return EppResponse.from_dict(response_data)
+            return self.parse_response(response_data, EppResponse)
         except Exception as error:
             raise self.handle_error(error, "EPP Service")

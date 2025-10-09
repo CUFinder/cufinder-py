@@ -16,7 +16,7 @@ Example:
     ```
 """
 
-from .client import CUFinderClient
+from .client import CufinderClient
 from .sdk import CufinderSDK
 from .exceptions import (
     CufinderError,
@@ -46,7 +46,7 @@ SDK_INFO = {
 
 __all__ = [
     "CufinderSDK",
-    "CUFinderClient",
+    "CufinderClient",
     "CufinderError",
     "AuthenticationError",
     "ValidationError",

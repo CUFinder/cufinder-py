@@ -33,6 +33,6 @@ class Clo(BaseService):
                 "query": query.strip(),
             })
 
-            return CloResponse.from_dict(response_data)
+            return self.parse_response(response_data, CloResponse)
         except Exception as error:
             raise self.handle_error(error, "CLO Service")

@@ -17,7 +17,7 @@ class Company(BaseModel):
     description: Optional[str] = None
     founded: Optional[int] = None
     revenue: Optional[str] = None
-    employees: Optional[int] = None
+    employees: Optional[dict] = None
     website: Optional[str] = None
     phone: Optional[str] = None
     email: Optional[str] = None

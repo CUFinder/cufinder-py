@@ -34,6 +34,6 @@ class Enc(BaseService):
                 "query": query.strip(),
             })
 
-            return EncResponse.from_dict(response_data)
+            return self.parse_response(response_data, EncResponse)
         except Exception as error:
             raise self.handle_error(error, "ENC Service")

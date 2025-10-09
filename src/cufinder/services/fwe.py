@@ -30,9 +30,9 @@ class Fwe(BaseService):
         """
         try:
             response_data = self.client.post("/fwe", {
-                "profile_url": profile_url.strip(),
+                "linkedin_url": profile_url.strip(),
             })
 
-            return FweResponse.from_dict(response_data)
+            return self.parse_response(response_data, FweResponse)
         except Exception as error:
             raise self.handle_error(error, "FWE Service")

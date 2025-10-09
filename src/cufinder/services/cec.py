@@ -33,6 +33,6 @@ class Cec(BaseService):
                 "query": query.strip(),
             })
 
-            return CecResponse.from_dict(response_data)
+            return self.parse_response(response_data, CecResponse)
         except Exception as error:
             raise self.handle_error(error, "CEC Service")

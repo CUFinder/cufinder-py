@@ -33,6 +33,6 @@ class Elf(BaseService):
                 "query": query.strip(),
             })
 
-            return ElfResponse.from_dict(response_data)
+            return self.parse_response(response_data, ElfResponse)
         except Exception as error:
             raise self.handle_error(error, "ELF Service")

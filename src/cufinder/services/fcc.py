@@ -33,6 +33,6 @@ class Fcc(BaseService):
                 "query": query.strip(),
             })
 
-            return FccResponse.from_dict(response_data)
+            return self.parse_response(response_data, FccResponse)
         except Exception as error:
             raise self.handle_error(error, "FCC Service")

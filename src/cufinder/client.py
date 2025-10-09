@@ -18,7 +18,7 @@ from .exceptions import (
 )
 
 
-class CUFinderClient:
+class CufinderClient:
     """
     Main CUFinder API client class.
     

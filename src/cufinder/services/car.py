@@ -33,6 +33,6 @@ class Car(BaseService):
                 "query": query.strip(),
             })
 
-            return CarResponse.from_dict(response_data)
+            return self.parse_response(response_data, CarResponse)
         except Exception as error:
             raise self.handle_error(error, "CAR Service")

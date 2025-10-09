@@ -32,7 +32,7 @@ class Dte(BaseService):
                 "company_website": company_website.strip(),
             })
 
-            return DteResponse.from_dict(response_data)
+            return self.parse_response(response_data, DteResponse)
         except Exception as error:
             raise self.handle_error(error, "DTE Service")
 

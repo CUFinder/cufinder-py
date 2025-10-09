@@ -33,6 +33,6 @@ class Ntp(BaseService):
                 "company_name": company_name.strip(),
             })
 
-            return NtpResponse.from_dict(response_data)
+            return self.parse_response(response_data, NtpResponse)
         except Exception as error:
             raise self.handle_error(error, "NTP Service")

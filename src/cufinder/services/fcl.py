@@ -33,6 +33,6 @@ class Fcl(BaseService):
                 "query": query.strip(),
             })
 
-            return FclResponse.from_dict(response_data)
+            return self.parse_response(response_data, FclResponse)
         except Exception as error:
             raise self.handle_error(error, "FCL Service")

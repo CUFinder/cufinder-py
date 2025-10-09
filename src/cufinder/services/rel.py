@@ -36,6 +36,6 @@ class Rel(BaseService):
                 "email": email.strip(),
             })
 
-            return RelResponse.from_dict(response_data)
+            return self.parse_response(response_data, RelResponse)
         except Exception as error:
             raise self.handle_error(error, "REL Service")

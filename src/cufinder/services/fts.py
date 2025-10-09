@@ -33,6 +33,6 @@ class Fts(BaseService):
                 "query": query.strip(),
             })
 
-            return FtsResponse.from_dict(response_data)
+            return self.parse_response(response_data, FtsResponse)
         except Exception as error:
             raise self.handle_error(error, "FTS Service")

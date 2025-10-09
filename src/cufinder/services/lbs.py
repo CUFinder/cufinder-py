@@ -55,6 +55,6 @@ class Lbs(BaseService):
 
             response_data = self.client.post("/lbs", search_params)
 
-            return LbsResponse.from_dict(response_data)
+            return self.parse_response(response_data, LbsResponse)
         except Exception as error:
             raise self.handle_error(error, "LBS Service")

@@ -42,6 +42,6 @@ class Cuf(BaseService):
                 "country_code": country_code.strip().upper(),
             })
 
-            return CufResponse.from_dict(response_data)
+            return self.parse_response(response_data, CufResponse)
         except Exception as error:
             raise self.handle_error(error, "CUF Service")

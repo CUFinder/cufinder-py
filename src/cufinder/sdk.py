@@ -1,8 +1,8 @@
-"""Main Cufinder SDK class."""
+"""Main CUFinder SDK class."""
 
 from typing import Optional
 
-from .client import CUFinderClient
+from .client import CufinderClient
 from .services import (
     Cuf, Epp, Lbs, Dtc, Dte, Ntp, Rel, Fcl, Elf, Car, Fcc, Fts, Fwe, Tep, Enc, Cec, Clo, Cse, Pse, Lcuf
 )
@@ -24,15 +24,15 @@ class CufinderSDK:
         max_retries: int = 3,
     ):
         """
-        Initialize the Cufinder SDK.
+        Initialize the CUFinder SDK.
         
         Args:
-            api_key: Your Cufinder API key
+            api_key: Your CUFinder API key
             base_url: Base URL for the API (default: https://api.cufinder.io/v2)
             timeout: Request timeout in seconds (default: 30)
             max_retries: Maximum number of retries for failed requests (default: 3)
         """
-        self.client = CUFinderClient(
+        self.client = CufinderClient(
             api_key=api_key,
             base_url=base_url,
             timeout=timeout,
@@ -160,17 +160,18 @@ class CufinderSDK:
         """
         return self._fwe.get_email_from_profile(profile_url)
 
-    def tep(self, query: str):
+    def tep(self, full_name: str, company: str):
         """
         Enrich person information.
         
         Args:
-            query: Person name, email, or other identifier to enrich
+            full_name: Full name of the person to enrich
+            company: Company name where the person works
             
         Returns:
             TepResponse: Enriched person information
         """
-        return self._tep.enrich_person(query)
+        return self._tep.enrich_person(full_name, company)
 
     # Company Intelligence Services
     def fcl(self, query: str):
@@ -304,63 +305,135 @@ class CufinderSDK:
 
     def cse(
         self,
-        query: Optional[str] = None,
+        name: Optional[str] = None,
+        country: Optional[str] = None,
+        state: Optional[str] = None,
+        city: Optional[str] = None,
+        followers_count_min: Optional[int] = None,
+        followers_count_max: Optional[int] = None,
         industry: Optional[str] = None,
-        location: Optional[str] = None,
-        size: Optional[str] = None,
+        employee_size: Optional[str] = None,
+        founded_after_year: Optional[int] = None,
+        founded_before_year: Optional[int] = None,
+        funding_amount_max: Optional[int] = None,
+        funding_amount_min: Optional[int] = None,
+        products_services: Optional[list] = None,
+        is_school: Optional[bool] = None,
+        annual_revenue_min: Optional[int] = None,
+        annual_revenue_max: Optional[int] = None,
         page: Optional[int] = None,
     ):
         """
         Search companies.
         
         Args:
-            query: Company name or description to search for
+            name: Company name to search for
+            country: Country to filter by
+            state: State/Province to filter by
+            city: City to filter by
+            followers_count_min: Minimum followers count
+            followers_count_max: Maximum followers count
             industry: Industry to filter by
-            location: Location to filter by
-            size: Company size to filter by
+            employee_size: Employee size to filter by
+            founded_after_year: Founded after year
+            founded_before_year: Founded before year
+            funding_amount_max: Maximum funding amount
+            funding_amount_min: Minimum funding amount
+            products_services: List of products/services
+            is_school: Filter for schools only
+            annual_revenue_min: Minimum annual revenue
+            annual_revenue_max: Maximum annual revenue
             page: Page number for pagination
             
         Returns:
             CseResponse: Company search results
         """
         return self._cse.search_companies(
-            query=query,
+            name=name,
+            country=country,
+            state=state,
+            city=city,
+            followers_count_min=followers_count_min,
+            followers_count_max=followers_count_max,
             industry=industry,
-            location=location,
-            size=size,
+            employee_size=employee_size,
+            founded_after_year=founded_after_year,
+            founded_before_year=founded_before_year,
+            funding_amount_max=funding_amount_max,
+            funding_amount_min=funding_amount_min,
+            products_services=products_services,
+            is_school=is_school,
+            annual_revenue_min=annual_revenue_min,
+            annual_revenue_max=annual_revenue_max,
             page=page,
         )
 
     def pse(
         self,
-        query: Optional[str] = None,
-        job_title: Optional[str] = None,
-        company: Optional[str] = None,
-        location: Optional[str] = None,
+        full_name: Optional[str] = None,
+        country: Optional[str] = None,
+        state: Optional[str] = None,
+        city: Optional[str] = None,
+        job_title_role: Optional[str] = None,
+        job_title_level: Optional[str] = None,
+        company_country: Optional[str] = None,
+        company_state: Optional[str] = None,
+        company_city: Optional[str] = None,
+        company_name: Optional[str] = None,
+        company_linkedin_url: Optional[str] = None,
+        company_industry: Optional[str] = None,
+        company_employee_size: Optional[str] = None,
+        company_products_services: Optional[list] = None,
+        company_annual_revenue_min: Optional[int] = None,
+        company_annual_revenue_max: Optional[int] = None,
         page: Optional[int] = None,
     ):
         """
         Search people.
         
         Args:
-            query: Person name or description to search for
-            job_title: Job title to filter by
-            company: Company to filter by
-            location: Location to filter by
+            full_name: Full name to search for
+            country: Country to filter by
+            state: State/Province to filter by
+            city: City to filter by
+            job_title_role: Job title role to filter by
+            job_title_level: Job title level to filter by
+            company_country: Company country to filter by
+            company_state: Company state to filter by
+            company_city: Company city to filter by
+            company_name: Company name to filter by
+            company_linkedin_url: Company LinkedIn URL to filter by
+            company_industry: Company industry to filter by
+            company_employee_size: Company employee size to filter by
+            company_products_services: Company products/services to filter by
+            company_annual_revenue_min: Company minimum annual revenue
+            company_annual_revenue_max: Company maximum annual revenue
             page: Page number for pagination
             
         Returns:
             PseResponse: People search results
         """
         return self._pse.search_people(
-            query=query,
-            job_title=job_title,
-            company=company,
-            location=location,
+            full_name=full_name,
+            country=country,
+            state=state,
+            city=city,
+            job_title_role=job_title_role,
+            job_title_level=job_title_level,
+            company_country=company_country,
+            company_state=company_state,
+            company_city=company_city,
+            company_name=company_name,
+            company_linkedin_url=company_linkedin_url,
+            company_industry=company_industry,
+            company_employee_size=company_employee_size,
+            company_products_services=company_products_services,
+            company_annual_revenue_min=company_annual_revenue_min,
+            company_annual_revenue_max=company_annual_revenue_max,
             page=page,
         )
 
-    def get_client(self) -> CUFinderClient:
+    def get_client(self) -> CufinderClient:
         """
         Get the underlying HTTP client for advanced usage.
         
