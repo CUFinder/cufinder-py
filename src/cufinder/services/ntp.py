@@ -23,16 +23,16 @@ class Ntp(BaseService):
             
         Example:
             ```python
-            phones = sdk.ntp("TechCorp")
-            print(phones.phones)  # ['+1-555-123-4567', '+1-555-987-6543']
+            result = client.ntp("Apple")
+            print(result.phones)  # ['+1-408-996-1010']
             ```
         """
 
         try:
-            response_data = self.client.post("/ntp", {
+            response = self.client.post("/ntp", {
                 "company_name": company_name.strip(),
             })
 
-            return self.parse_response(response_data, NtpResponse)
+            return NtpResponse.from_dict(self.parse_response_data(response))
         except Exception as error:
             raise self.handle_error(error, "NTP Service")

@@ -3,22 +3,22 @@
 import pytest
 from unittest.mock import Mock, patch
 
-from cufinder import CufinderSDK
+from cufinder import Cufinder
 from cufinder.exceptions import ValidationError, AuthenticationError
 
 
-class TestCufinderSDK:
-    """Test cases for CufinderSDK."""
+class TestCufinder:
+    """Test cases for Cufinder."""
 
     def test_init_with_valid_api_key(self):
         """Test SDK initialization with valid API key."""
-        sdk = CufinderSDK(api_key="test-key")
+        sdk = Cufinder(api_key="test-key")
         assert sdk.client.api_key == "test-key"
         assert sdk.client.base_url == "https://api.cufinder.io/v2"
 
     def test_init_with_custom_config(self):
         """Test SDK initialization with custom configuration."""
-        sdk = CufinderSDK(
+        sdk = Cufinder(
             api_key="test-key",
             base_url="https://custom.api.com",
             timeout=60,
@@ -30,7 +30,7 @@ class TestCufinderSDK:
 
     def test_get_client(self):
         """Test getting the underlying client."""
-        sdk = CufinderSDK(api_key="test-key")
+        sdk = Cufinder(api_key="test-key")
         client = sdk.get_client()
         assert client.api_key == "test-key"
 
@@ -47,7 +47,7 @@ class TestCufinderSDK:
         }
         mock_session.return_value.request.return_value = mock_response
 
-        sdk = CufinderSDK(api_key="test-key")
+        sdk = Cufinder(api_key="test-key")
         result = sdk.cuf("TechCorp", "US")
 
         assert result.domain == "techcorp.com"
@@ -73,7 +73,7 @@ class TestCufinderSDK:
         }
         mock_session.return_value.request.return_value = mock_response
 
-        sdk = CufinderSDK(api_key="test-key")
+        sdk = Cufinder(api_key="test-key")
         result = sdk.epp("https://linkedin.com/in/johndoe")
 
         assert result.person.full_name == "John Doe"
@@ -97,7 +97,7 @@ class TestCufinderSDK:
         }
         mock_session.return_value.request.return_value = mock_response
 
-        sdk = CufinderSDK(api_key="test-key")
+        sdk = Cufinder(api_key="test-key")
         result = sdk.lbs(name="coffee", city="San Francisco")
 
         assert len(result.businesses) == 2
@@ -117,7 +117,7 @@ class TestCufinderSDK:
         }
         mock_session.return_value.request.return_value = mock_response
 
-        sdk = CufinderSDK(api_key="test-key")
+        sdk = Cufinder(api_key="test-key")
         result = sdk.dtc("https://example.com")
 
         assert result.company_name == "Example Corp"
@@ -137,7 +137,7 @@ class TestCufinderSDK:
         }
         mock_session.return_value.request.return_value = mock_response
 
-        sdk = CufinderSDK(api_key="test-key")
+        sdk = Cufinder(api_key="test-key")
         result = sdk.dte("https://example.com")
 
         assert len(result.emails) == 2
@@ -157,7 +157,7 @@ class TestCufinderSDK:
         }
         mock_session.return_value.request.return_value = mock_response
 
-        sdk = CufinderSDK(api_key="test-key")
+        sdk = Cufinder(api_key="test-key")
         result = sdk.ntp("TechCorp")
 
         assert len(result.phones) == 2
@@ -183,7 +183,7 @@ class TestCufinderSDK:
         }
         mock_session.return_value.request.return_value = mock_response
 
-        sdk = CufinderSDK(api_key="test-key")
+        sdk = Cufinder(api_key="test-key")
         result = sdk.rel("jane@example.com")
 
         assert result.person.full_name == "Jane Smith"
@@ -207,7 +207,7 @@ class TestCufinderSDK:
         }
         mock_session.return_value.request.return_value = mock_response
 
-        sdk = CufinderSDK(api_key="test-key")
+        sdk = Cufinder(api_key="test-key")
         result = sdk.fcl("TechCorp")
 
         assert len(result.companies) == 2
@@ -230,7 +230,7 @@ class TestCufinderSDK:
         }
         mock_session.return_value.request.return_value = mock_response
 
-        sdk = CufinderSDK(api_key="test-key")
+        sdk = Cufinder(api_key="test-key")
         result = sdk.elf("TechCorp")
 
         assert result.fundraising["total_raised"] == "$10M"
@@ -250,7 +250,7 @@ class TestCufinderSDK:
         }
         mock_session.return_value.request.return_value = mock_response
 
-        sdk = CufinderSDK(api_key="test-key")
+        sdk = Cufinder(api_key="test-key")
         result = sdk.car("TechCorp")
 
         assert result.revenue == "$50M - $100M"
@@ -273,7 +273,7 @@ class TestCufinderSDK:
         }
         mock_session.return_value.request.return_value = mock_response
 
-        sdk = CufinderSDK(api_key="test-key")
+        sdk = Cufinder(api_key="test-key")
         result = sdk.fcc("Alphabet Inc")
 
         assert len(result.subsidiaries) == 2
@@ -293,7 +293,7 @@ class TestCufinderSDK:
         }
         mock_session.return_value.request.return_value = mock_response
 
-        sdk = CufinderSDK(api_key="test-key")
+        sdk = Cufinder(api_key="test-key")
         result = sdk.fts("TechCorp")
 
         assert len(result.tech_stack) == 4
@@ -314,7 +314,7 @@ class TestCufinderSDK:
         }
         mock_session.return_value.request.return_value = mock_response
 
-        sdk = CufinderSDK(api_key="test-key")
+        sdk = Cufinder(api_key="test-key")
         result = sdk.fwe("https://linkedin.com/in/johndoe")
 
         assert result.work_email == "john.doe@example.com"
@@ -338,7 +338,7 @@ class TestCufinderSDK:
         }
         mock_session.return_value.request.return_value = mock_response
 
-        sdk = CufinderSDK(api_key="test-key")
+        sdk = Cufinder(api_key="test-key")
         result = sdk.tep("John Doe", "TechCorp")
 
         assert result.person.full_name == "John Doe"
@@ -363,7 +363,7 @@ class TestCufinderSDK:
         }
         mock_session.return_value.request.return_value = mock_response
 
-        sdk = CufinderSDK(api_key="test-key")
+        sdk = Cufinder(api_key="test-key")
         result = sdk.enc("TechCorp")
 
         assert result.company.name == "TechCorp Inc"
@@ -384,7 +384,7 @@ class TestCufinderSDK:
         }
         mock_session.return_value.request.return_value = mock_response
 
-        sdk = CufinderSDK(api_key="test-key")
+        sdk = Cufinder(api_key="test-key")
         result = sdk.cec("TechCorp")
 
         assert len(result.countries) == 3
@@ -408,7 +408,7 @@ class TestCufinderSDK:
         }
         mock_session.return_value.request.return_value = mock_response
 
-        sdk = CufinderSDK(api_key="test-key")
+        sdk = Cufinder(api_key="test-key")
         result = sdk.clo("TechCorp")
 
         assert len(result.locations) == 2
@@ -431,7 +431,7 @@ class TestCufinderSDK:
         }
         mock_session.return_value.request.return_value = mock_response
 
-        sdk = CufinderSDK(api_key="test-key")
+        sdk = Cufinder(api_key="test-key")
         result = sdk.cse(name="tech", industry="software")
 
         assert len(result.companies) == 2
@@ -454,7 +454,7 @@ class TestCufinderSDK:
         }
         mock_session.return_value.request.return_value = mock_response
 
-        sdk = CufinderSDK(api_key="test-key")
+        sdk = Cufinder(api_key="test-key")
         result = sdk.pse(full_name="engineer", company_name="TechCorp")
 
         assert len(result.people) == 2
@@ -474,7 +474,7 @@ class TestCufinderSDK:
         }
         mock_session.return_value.request.return_value = mock_response
 
-        sdk = CufinderSDK(api_key="test-key")
+        sdk = Cufinder(api_key="test-key")
         result = sdk.lcuf("TechCorp")
 
         assert result.linkedin_url == "https://linkedin.com/company/techcorp"

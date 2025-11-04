@@ -1,19 +1,67 @@
 """Main CUFinder SDK class."""
 
-from typing import Optional
+from typing import List, Optional
 
 from .client import CufinderClient
 from .services import (
     Cuf, Epp, Lbs, Dtc, Dte, Ntp, Rel, Fcl, Elf, Car, Fcc, Fts, Fwe, Tep, Enc, Cec, Clo, Cse, Pse, Lcuf
 )
+from .types import CseParams, PseParams, LbsParams
 
 
-class CufinderSDK:
+class Cufinder:
     """
     Main CUFinder SDK class.
     
-    Provides access to all API services as direct methods.
-    Usage: sdk.cuf(company_name="TechCorp", country_code="US")
+    Provides access to all 20 CUFinder API services with improved error handling,
+    parameter validation, and response models that match the TypeScript SDK.
+    
+    Features:
+    - All 20 CUFinder services (CUF, LCUF, DTC, DTE, NTP, REL, FCL, ELF, CAR, 
+      FCC, FTS, EPP, FWE, TEP, ENC, CEC, CLO, CSE, PSE, LBS)
+    - Type-safe parameter classes for search services
+    - Comprehensive error handling with specific exception types
+    - Response models that match the TypeScript SDK exactly
+    - Automatic retry logic and request/response interceptors
+    
+    Args:
+        api_key: Your CUFinder API key
+        base_url: Base URL for the API (default: https://api.cufinder.io/v2)
+        timeout: Request timeout in seconds (default: 30)
+        max_retries: Maximum number of retries for failed requests (default: 3)
+        
+    Example:
+        ```python
+        from cufinder import Cufinder
+        
+        client = Cufinder('your-api-key-here')
+        
+        # Company services
+        result = client.cuf('cufinder', 'US')
+        result = client.dte('cufinder.io')
+        result = client.ntp('apple')
+        
+        # Person services  
+        result = client.epp('linkedin.com/in/iain-mckenzie')
+        result = client.tep('iain mckenzie', 'stripe')
+        
+        # Search services
+        result = client.cse(
+            name='cufinder',
+            country='germany',
+            state='hamburg',
+            city='hamburg'
+        )
+        result = client.pse(
+            full_name='iain mckenzie',
+            company_name='stripe'
+        )
+        result = client.lbs(
+            country='united states',
+            state='california',
+            page=1
+        )
+        ```
     """
 
     def __init__(
@@ -72,6 +120,12 @@ class CufinderSDK:
             
         Returns:
             CufResponse: Company domain information
+            
+        Example:
+            ```python
+            result = client.cuf('cufinder', 'US')
+            print(result)
+            ```
         """
         return self._cuf.get_domain(company_name, country_code)
 
@@ -84,6 +138,12 @@ class CufinderSDK:
             
         Returns:
             DtcResponse: Company name information
+            
+        Example:
+            ```python
+            result = client.dtc('cufinder.io')
+            print(result)
+            ```
         """
         return self._dtc.get_company_name(company_website)
 
@@ -96,6 +156,12 @@ class CufinderSDK:
             
         Returns:
             DteResponse: Company email information
+            
+        Example:
+            ```python
+            result = client.dte('cufinder.io')
+            print(result)
+            ```
         """
         return self._dte.get_emails(company_website)
 
@@ -108,6 +174,12 @@ class CufinderSDK:
             
         Returns:
             NtpResponse: Company phone information
+            
+        Example:
+            ```python
+            result = client.ntp('apple')
+            print(result)
+            ```
         """
         return self._ntp.get_phones(company_name)
 
@@ -120,6 +192,12 @@ class CufinderSDK:
             
         Returns:
             LcufResponse: LinkedIn URL information
+            
+        Example:
+            ```python
+            result = client.lcuf('cufinder')
+            print(result)
+            ```
         """
         return self._lcuf.get_linkedin_url(company_name)
 
@@ -133,6 +211,12 @@ class CufinderSDK:
             
         Returns:
             EppResponse: Enriched person and company data
+            
+        Example:
+            ```python
+            result = client.epp('linkedin.com/in/iain-mckenzie')
+            print(result)
+            ```
         """
         return self._epp.enrich_profile(linkedin_url)
 
@@ -145,6 +229,12 @@ class CufinderSDK:
             
         Returns:
             RelResponse: Person and company information
+            
+        Example:
+            ```python
+            result = client.rel('iain.mckenzie@stripe.com')
+            print(result)
+            ```
         """
         return self._rel.reverse_email_lookup(email)
 
@@ -157,6 +247,12 @@ class CufinderSDK:
             
         Returns:
             FweResponse: Email information
+            
+        Example:
+            ```python
+            result = client.fwe('linkedin.com/in/iain-mckenzie')
+            print(result)
+            ```
         """
         return self._fwe.get_email_from_profile(profile_url)
 
@@ -170,6 +266,12 @@ class CufinderSDK:
             
         Returns:
             TepResponse: Enriched person information
+            
+        Example:
+            ```python
+            result = client.tep('iain mckenzie', 'stripe')
+            print(result)
+            ```
         """
         return self._tep.enrich_person(full_name, company)
 
@@ -183,6 +285,12 @@ class CufinderSDK:
             
         Returns:
             FclResponse: List of similar companies
+            
+        Example:
+            ```python
+            result = client.fcl('apple')
+            print(result)
+            ```
         """
         return self._fcl.get_lookalikes(query)
 
@@ -195,6 +303,12 @@ class CufinderSDK:
             
         Returns:
             ElfResponse: Fundraising information
+            
+        Example:
+            ```python
+            result = client.elf('cufinder')
+            print(result)
+            ```
         """
         return self._elf.get_fundraising(query)
 
@@ -207,6 +321,12 @@ class CufinderSDK:
             
         Returns:
             CarResponse: Revenue information
+            
+        Example:
+            ```python
+            result = client.car('apple')
+            print(result)
+            ```
         """
         return self._car.get_revenue(query)
 
@@ -219,6 +339,12 @@ class CufinderSDK:
             
         Returns:
             FccResponse: Subsidiaries information
+            
+        Example:
+            ```python
+            result = client.fcc('amazon')
+            print(result)
+            ```
         """
         return self._fcc.get_subsidiaries(query)
 
@@ -231,6 +357,12 @@ class CufinderSDK:
             
         Returns:
             FtsResponse: Technology stack information
+            
+        Example:
+            ```python
+            result = client.fts('cufinder')
+            print(result)
+            ```
         """
         return self._fts.get_tech_stack(query)
 
@@ -243,6 +375,12 @@ class CufinderSDK:
             
         Returns:
             EncResponse: Enriched company information
+            
+        Example:
+            ```python
+            result = client.enc('cufinder')
+            print(result)
+            ```
         """
         return self._enc.enrich_company(query)
 
@@ -255,6 +393,12 @@ class CufinderSDK:
             
         Returns:
             CecResponse: Employee countries information
+            
+        Example:
+            ```python
+            result = client.cec('cufinder')
+            print(result)
+            ```
         """
         return self._cec.get_employee_countries(query)
 
@@ -267,6 +411,12 @@ class CufinderSDK:
             
         Returns:
             CloResponse: Company locations information
+            
+        Example:
+            ```python
+            result = client.clo('apple')
+            print(result)
+            ```
         """
         return self._clo.get_locations(query)
 
@@ -293,15 +443,19 @@ class CufinderSDK:
             
         Returns:
             LbsResponse: Local business search results
+            
+        Example:
+            ```python
+            result = client.lbs(
+                country='united states',
+                state='california',
+                page=1
+            )
+            print(result)
+            ```
         """
-        return self._lbs.search_local_businesses(
-            name=name,
-            country=country,
-            state=state,
-            city=city,
-            industry=industry,
-            page=page,
-        )
+        params = {k: v for k, v in locals().items() if k != 'self' and v is not None}
+        return self._lbs.search_local_businesses(params if params else None)
 
     def cse(
         self,
@@ -317,7 +471,7 @@ class CufinderSDK:
         founded_before_year: Optional[int] = None,
         funding_amount_max: Optional[int] = None,
         funding_amount_min: Optional[int] = None,
-        products_services: Optional[list] = None,
+        products_services: Optional[List[str]] = None,
         is_school: Optional[bool] = None,
         annual_revenue_min: Optional[int] = None,
         annual_revenue_max: Optional[int] = None,
@@ -331,10 +485,10 @@ class CufinderSDK:
             country: Country to filter by
             state: State/Province to filter by
             city: City to filter by
-            followers_count_min: Minimum followers count
-            followers_count_max: Maximum followers count
+            followers_count_min: Minimum LinkedIn followers count
+            followers_count_max: Maximum LinkedIn followers count
             industry: Industry to filter by
-            employee_size: Employee size to filter by
+            employee_size: Employee size range (e.g., '1-10', '51-200', '10000+')
             founded_after_year: Founded after year
             founded_before_year: Founded before year
             funding_amount_max: Maximum funding amount
@@ -347,26 +501,20 @@ class CufinderSDK:
             
         Returns:
             CseResponse: Company search results
+            
+        Example:
+            ```python
+            result = client.cse(
+                name='cufinder',
+                country='germany',
+                state='hamburg',
+                city='hamburg'
+            )
+            print(result)
+            ```
         """
-        return self._cse.search_companies(
-            name=name,
-            country=country,
-            state=state,
-            city=city,
-            followers_count_min=followers_count_min,
-            followers_count_max=followers_count_max,
-            industry=industry,
-            employee_size=employee_size,
-            founded_after_year=founded_after_year,
-            founded_before_year=founded_before_year,
-            funding_amount_max=funding_amount_max,
-            funding_amount_min=funding_amount_min,
-            products_services=products_services,
-            is_school=is_school,
-            annual_revenue_min=annual_revenue_min,
-            annual_revenue_max=annual_revenue_max,
-            page=page,
-        )
+        params = {k: v for k, v in locals().items() if k != 'self' and v is not None}
+        return self._cse.search_companies(params if params else None)
 
     def pse(
         self,
@@ -383,7 +531,7 @@ class CufinderSDK:
         company_linkedin_url: Optional[str] = None,
         company_industry: Optional[str] = None,
         company_employee_size: Optional[str] = None,
-        company_products_services: Optional[list] = None,
+        company_products_services: Optional[List[str]] = None,
         company_annual_revenue_min: Optional[int] = None,
         company_annual_revenue_max: Optional[int] = None,
         page: Optional[int] = None,
@@ -412,26 +560,18 @@ class CufinderSDK:
             
         Returns:
             PseResponse: People search results
+            
+        Example:
+            ```python
+            result = client.pse(
+                full_name='iain mckenzie',
+                company_name='stripe'
+            )
+            print(result)
+            ```
         """
-        return self._pse.search_people(
-            full_name=full_name,
-            country=country,
-            state=state,
-            city=city,
-            job_title_role=job_title_role,
-            job_title_level=job_title_level,
-            company_country=company_country,
-            company_state=company_state,
-            company_city=company_city,
-            company_name=company_name,
-            company_linkedin_url=company_linkedin_url,
-            company_industry=company_industry,
-            company_employee_size=company_employee_size,
-            company_products_services=company_products_services,
-            company_annual_revenue_min=company_annual_revenue_min,
-            company_annual_revenue_max=company_annual_revenue_max,
-            page=page,
-        )
+        params = {k: v for k, v in locals().items() if k != 'self' and v is not None}
+        return self._pse.search_people(params if params else None)
 
     def get_client(self) -> CufinderClient:
         """

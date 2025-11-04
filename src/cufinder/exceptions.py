@@ -9,47 +9,43 @@ class CufinderError(Exception):
     def __init__(
         self,
         message: str,
-        error_type: str = "CUFINDER_ERROR",
+        code: str = "CUFINDER_ERROR",
         status_code: Optional[int] = None,
         details: Optional[Dict[str, Any]] = None,
     ):
         super().__init__(message)
         self.message = message
-        self.error_type = error_type
+        self.code = code
         self.status_code = status_code
         self.details = details or {}
 
     def __str__(self) -> str:
         if self.status_code:
-            return f"[{self.error_type}] {self.message} (Status: {self.status_code})"
-        return f"[{self.error_type}] {self.message}"
+            return f"[{self.code}] {self.message} (Status: {self.status_code})"
+        return f"[{self.code}] {self.message}"
 
     def to_dict(self) -> Dict[str, Any]:
         """Convert exception to dictionary."""
         return {
-            "error_type": self.error_type,
+            "code": self.code,
             "message": self.message,
             "status_code": self.status_code,
             "details": self.details,
         }
 
 
+class NetworkError(CufinderError):
+    """Raised when network-related errors occur."""
+
+    def __init__(self, message: str = "Network error", status_code: Optional[int] = None):
+        super().__init__(message, "NETWORK_ERROR", status_code)
+
+
 class AuthenticationError(CufinderError):
     """Raised when authentication fails."""
 
     def __init__(self, message: str = "Authentication failed"):
-        super().__init__(message, "AUTHENTICATION_ERROR", 401)
-
-
-class ValidationError(CufinderError):
-    """Raised when request validation fails."""
-
-    def __init__(
-        self,
-        message: str = "Validation failed",
-        details: Optional[Dict[str, Any]] = None,
-    ):
-        super().__init__(message, "VALIDATION_ERROR", 400, details)
+        super().__init__(message, "AUTH_ERROR", 401)
 
 
 class RateLimitError(CufinderError):
@@ -68,12 +64,41 @@ class RateLimitError(CufinderError):
 class CreditLimitError(CufinderError):
     """Raised when credit limit is exceeded."""
 
-    def __init__(self, message: str = "Credit limit exceeded"):
-        super().__init__(message, "CREDIT_LIMIT_ERROR", 402)
+    def __init__(self, message: str = "Not enough credit"):
+        super().__init__(message, "CREDIT_LIMIT_ERROR", 400)
 
 
-class NetworkError(CufinderError):
-    """Raised when network-related errors occur."""
+class NotFoundError(CufinderError):
+    """Raised when a resource is not found."""
 
-    def __init__(self, message: str = "Network error", status_code: int = 0):
-        super().__init__(message, "NETWORK_ERROR", status_code)
+    def __init__(self, message: str = "Not found result"):
+        super().__init__(message, "NOT_FOUND_ERROR", 404)
+
+
+class PayloadError(CufinderError):
+    """Raised when there's an error in the payload."""
+
+    def __init__(
+        self,
+        message: str = "Error in the payload",
+        details: Optional[Dict[str, Any]] = None,
+    ):
+        super().__init__(message, "PAYLOAD_ERROR", 422, details)
+
+
+class ServerError(CufinderError):
+    """Raised when server errors occur."""
+
+    def __init__(self, message: str = "Server error", status_code: int = 500):
+        super().__init__(message, "SERVER_ERROR", status_code)
+
+
+class ValidationError(CufinderError):
+    """Raised when request validation fails."""
+
+    def __init__(
+        self,
+        message: str = "Validation failed",
+        details: Optional[Dict[str, Any]] = None,
+    ):
+        super().__init__(message, "VALIDATION_ERROR", 400, details)

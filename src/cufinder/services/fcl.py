@@ -23,16 +23,17 @@ class Fcl(BaseService):
             
         Example:
             ```python
-            lookalikes = sdk.fcl("TechCorp")
-            print(f"Found {lookalikes.total} similar companies")
+            result = client.fcl("Apple")
+            for company in result.companies:
+                print(f"{company.name} - {company.industry}")
             ```
         """
 
         try:
-            response_data = self.client.post("/fcl", {
+            response = self.client.post("/fcl", {
                 "query": query.strip(),
             })
 
-            return self.parse_response(response_data, FclResponse)
+            return FclResponse.from_dict(self.parse_response_data(response))
         except Exception as error:
             raise self.handle_error(error, "FCL Service")

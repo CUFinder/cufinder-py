@@ -23,15 +23,15 @@ class Dtc(BaseService):
             
         Example:
             ```python
-            company = sdk.dtc("https://example.com")
-            print(company.company_name)  # 'Example Corp'
+            result = client.dtc("stripe.com")
+            print(result.company_name)  # 'Stripe'
             ```
         """
         try:
-            response_data = self.client.post("/dtc", {
+            response = self.client.post("/dtc", {
                 "company_website": company_website.strip(),
             })
 
-            return self.parse_response(response_data, DtcResponse)
+            return DtcResponse.from_dict(self.parse_response_data(response))
         except Exception as error:
             raise self.handle_error(error, "DTC Service")

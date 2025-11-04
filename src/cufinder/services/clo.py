@@ -23,16 +23,17 @@ class Clo(BaseService):
             
         Example:
             ```python
-            locations = sdk.clo("TechCorp")
-            print(f"Found {locations.total} office locations")
+            result = client.clo("Apple")
+            for location in result.locations:
+                print(f"{location.city}, {location.state}, {location.country}")
             ```
         """
 
         try:
-            response_data = self.client.post("/clo", {
+            response = self.client.post("/clo", {
                 "query": query.strip(),
             })
 
-            return self.parse_response(response_data, CloResponse)
+            return CloResponse.from_dict(self.parse_response_data(response))
         except Exception as error:
             raise self.handle_error(error, "CLO Service")

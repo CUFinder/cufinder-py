@@ -20,28 +20,34 @@ class Cuf(BaseService):
         Get company domain from company name.
         
         Args:
-            company_name: The name of the company
-            country_code: ISO 3166-1 alpha-2 country code (e.g., 'US', 'GB')
+            company_name: The name of the company to find the domain for
+            country_code: The 2-letter ISO country code (e.g., 'US', 'GB')
             
         Returns:
             CufResponse: Company domain information
             
+        Raises:
+            ValidationError: If parameters are invalid
+            AuthenticationError: If API key is invalid
+            CreditLimitError: If not enough credits
+            NotFoundError: If company not found
+            NetworkError: If network issues occur
+            
         Example:
             ```python
-            domain = await sdk.cuf(
-                company_name="TechCorp",
-                country_code="US"
-            )
-            print(domain.domain)  # 'techcorp.com'
+            result = client.cuf("Apple Inc", "US")
+            print(result.domain)  # 'apple.com'
+            print(result.query)   # Original query
+            print(result.credit_count)  # Credits used
             ```
         """
 
         try:
-            response_data = self.client.post("/cuf", {
+            response = self.client.post("/cuf", {
                 "company_name": company_name.strip(),
                 "country_code": country_code.strip().upper(),
             })
 
-            return self.parse_response(response_data, CufResponse)
+            return CufResponse.from_dict(self.parse_response_data(response))
         except Exception as error:
             raise self.handle_error(error, "CUF Service")

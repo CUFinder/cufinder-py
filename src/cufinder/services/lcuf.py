@@ -23,16 +23,16 @@ class Lcuf(BaseService):
             
         Example:
             ```python
-            linkedin = sdk.lcuf("TechCorp")
-            print(linkedin.linkedin_url)  # 'https://linkedin.com/company/techcorp'
+            result = client.lcuf("cufinder")
+            print(result.linkedin_url)  # 'https://linkedin.com/company/cufinder'
             ```
         """
 
         try:
-            response_data = self.client.post("/lcuf", {
+            response = self.client.post("/lcuf", {
                 "company_name": company_name.strip(),
             })
 
-            return self.parse_response(response_data, LcufResponse)
+            return LcufResponse.from_dict(self.parse_response_data(response))
         except Exception as error:
             raise self.handle_error(error, "LCUF Service")

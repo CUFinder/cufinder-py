@@ -3,21 +3,22 @@ Cufinder Python SDK - Type-safe Python SDK for the Cufinder B2B Data Enrichment 
 
 Example:
     ```python
-    from cufinder import CufinderSDK
+    from cufinder import Cufinder
     
-    sdk = CufinderSDK(api_key="your-api-key-here")
+    client = Cufinder('your-api-key-here')
     
     # API usage
-    company = await sdk.cuf(
-        company_name="TechCorp",
-        country_code="US"
-    )
-    print(company.domain)  # 'techcorp.com'
+    result = client.cuf('cufinder', 'US')
+    print(result)
+    
+    result = client.tep('iain mckenzie', 'stripe')
+    print(result)
     ```
 """
 
 from .client import CufinderClient
-from .sdk import CufinderSDK
+from .sdk import Cufinder
+from .base_api_client import BaseApiClient, CufinderClientConfig, RequestConfig, Response
 from .exceptions import (
     CufinderError,
     AuthenticationError,
@@ -25,11 +26,15 @@ from .exceptions import (
     RateLimitError,
     CreditLimitError,
     NetworkError,
+    NotFoundError,
+    PayloadError,
+    ServerError,
 )
 from .models import *
 from .services import *
+from .types import CseParams, PseParams, LbsParams
 
-__version__ = "0.1.0"
+__version__ = "0.2.0"
 __author__ = "CUFinder Team"
 __email__ = "support@cufinder.io"
 
@@ -45,14 +50,21 @@ SDK_INFO = {
 }
 
 __all__ = [
-    "CufinderSDK",
+    "Cufinder",
     "CufinderClient",
+    "BaseApiClient",
+    "CufinderClientConfig",
+    "RequestConfig",
+    "Response",
     "CufinderError",
     "AuthenticationError",
     "ValidationError",
     "RateLimitError",
     "CreditLimitError",
     "NetworkError",
+    "NotFoundError",
+    "PayloadError",
+    "ServerError",
     # Models
     "BaseModel",
     "Company",
@@ -99,6 +111,10 @@ __all__ = [
     "Cse",
     "Pse",
     "Lcuf",
+    # Types
+    "CseParams",
+    "PseParams", 
+    "LbsParams",
     "__version__",
     "SDK_INFO",
 ]

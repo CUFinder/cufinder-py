@@ -23,16 +23,17 @@ class Fcc(BaseService):
             
         Example:
             ```python
-            subsidiaries = sdk.fcc("Alphabet Inc")
-            print(f"Found {subsidiaries.total} subsidiaries")
+            result = client.fcc("Amazon")
+            for subsidiary in result.subsidiaries:
+                print(subsidiary)
             ```
         """
 
         try:
-            response_data = self.client.post("/fcc", {
+            response = self.client.post("/fcc", {
                 "query": query.strip(),
             })
 
-            return self.parse_response(response_data, FccResponse)
+            return FccResponse.from_dict(self.parse_response_data(response))
         except Exception as error:
             raise self.handle_error(error, "FCC Service")

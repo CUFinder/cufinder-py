@@ -24,18 +24,18 @@ class Rel(BaseService):
             
         Example:
             ```python
-            person = sdk.rel("john.doe@example.com")
-            print(person.person.full_name)  # 'John Doe'
-            print(person.company.name)  # 'Example Corp'
+            result = client.rel("john.doe@example.com")
+            print(result.person.full_name)  # 'John Doe'
+            print(result.person.company_name)  # 'Example Corp'
             ```
         """
 
 
         try:
-            response_data = self.client.post("/rel", {
+            response = self.client.post("/rel", {
                 "email": email.strip(),
             })
 
-            return self.parse_response(response_data, RelResponse)
+            return RelResponse.from_dict(self.parse_response_data(response))
         except Exception as error:
             raise self.handle_error(error, "REL Service")

@@ -1,8 +1,9 @@
 """LBS - Local Business Search service."""
 
-from typing import Dict, Any, Optional
+from typing import Dict, Optional, Union
 
 from ..models.responses import LbsResponse
+from ..types import LbsParams
 from .base import BaseService
 
 
@@ -13,48 +14,42 @@ class Lbs(BaseService):
     Search for local businesses by location, industry, or name.
     """
 
-    def search_local_businesses(
-        self,
-        name: Optional[str] = None,
-        country: Optional[str] = None,
-        state: Optional[str] = None,
-        city: Optional[str] = None,
-        industry: Optional[str] = None,
-        page: Optional[int] = None,
-    ) -> LbsResponse:
+    def search_local_businesses(self, params: Union[LbsParams, Dict, None] = None) -> LbsResponse:
         """
-        Search local businesses.
+        Search local businesses by location, industry, or name.
         
         Args:
-            name: Business name to search for
-            country: Country to search in
-            state: State/Province to search in
-            city: City to search in
-            industry: Industry to filter by
-            page: Page number for pagination
+            params: LBS V2 parameters (dict or LbsParams object)
             
         Returns:
-            LbsResponse: Local business search results
+            LbsResponse: Local business search results with companies list
+            
+        Example:
+            ```python
+            # Using the SDK convenience method
+            result = client.lbs(
+                name="restaurant",
+                country="united states",
+                state="california",
+                page=1
+            )
+            
+            # Access business information
+            for business in result.companies:
+                print(f"Name: {business.name}")
+                print(f"Industry: {business.industry}")
+            ```
         """
         try:
-            search_params: Dict[str, Any] = {}
+            if params is None:
+                search_params = {}
+            elif isinstance(params, dict):
+                search_params = params
+            else:
+                search_params = params.to_dict()
 
-            # Add non-None parameters
-            if name is not None:
-                search_params["name"] = name
-            if country is not None:
-                search_params["country"] = country
-            if state is not None:
-                search_params["state"] = state
-            if city is not None:
-                search_params["city"] = city
-            if industry is not None:
-                search_params["industry"] = industry
-            if page is not None:
-                search_params["page"] = page
+            response = self.client.post("/lbs", search_params)
 
-            response_data = self.client.post("/lbs", search_params)
-
-            return self.parse_response(response_data, LbsResponse)
+            return LbsResponse.from_dict(self.parse_response_data(response))
         except Exception as error:
             raise self.handle_error(error, "LBS Service")

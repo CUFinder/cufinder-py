@@ -23,16 +23,16 @@ class Dte(BaseService):
             
         Example:
             ```python
-            emails = sdk.dte("https://example.com")
-            print(emails.emails)  # ['contact@example.com', 'info@example.com']
+            result = client.dte("stripe.com")
+            print(result.emails)  # ['contact@stripe.com', 'info@stripe.com']
             ```
         """
         try:
-            response_data = self.client.post("/dte", {
+            response = self.client.post("/dte", {
                 "company_website": company_website.strip(),
             })
 
-            return self.parse_response(response_data, DteResponse)
+            return DteResponse.from_dict(self.parse_response_data(response))
         except Exception as error:
             raise self.handle_error(error, "DTE Service")
 

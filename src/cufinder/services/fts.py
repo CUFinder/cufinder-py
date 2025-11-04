@@ -23,16 +23,17 @@ class Fts(BaseService):
             
         Example:
             ```python
-            tech_stack = sdk.fts("TechCorp")
-            print(tech_stack.tech_stack)  # ['Python', 'React', 'AWS', ...]
+            result = client.fts("stripe.com")
+            for tech in result.technologies:
+                print(tech)
             ```
         """
 
         try:
-            response_data = self.client.post("/fts", {
+            response = self.client.post("/fts", {
                 "query": query.strip(),
             })
 
-            return self.parse_response(response_data, FtsResponse)
+            return FtsResponse.from_dict(self.parse_response_data(response))
         except Exception as error:
             raise self.handle_error(error, "FTS Service")

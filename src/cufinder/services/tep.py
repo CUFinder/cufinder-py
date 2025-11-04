@@ -24,18 +24,18 @@ class Tep(BaseService):
             
         Example:
             ```python
-            person = sdk.tep("John Doe", "TechCorp")
-            print(person.person.full_name)  # 'John Doe'
-            print(person.person.job_title)  # 'Software Engineer'
+            result = client.tep("John Doe", "Stripe")
+            print(result.person.full_name)  # 'John Doe'
+            print(result.person.email)  # Work email
             ```
         """
 
         try:
-            response_data = self.client.post("/tep", {
+            response = self.client.post("/tep", {
                 "full_name": full_name.strip(),
                 "company": company.strip(),
             })
 
-            return self.parse_response(response_data, TepResponse)
+            return TepResponse.from_dict(self.parse_response_data(response))
         except Exception as error:
             raise self.handle_error(error, "TEP Service")

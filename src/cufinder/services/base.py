@@ -20,25 +20,27 @@ class BaseService:
         """
         self.client = client
 
-    def parse_response(self, response_data: dict, response_class):
+    def parse_response_data(self, response_data: dict):
         """
-        Parse API response with data wrapper.
+        Parse API response data from the wrapped response format.
         
         Args:
-            response_data: Raw API response
-            response_class: Response model class
+            response_data: The raw API response
             
         Returns:
-            Parsed response model
+            Parsed response data
         """
-        if "data" in response_data:
-            data = response_data["data"]
-            # The data object already contains query, credit_count, etc.
-            if "meta_data" in response_data:
-                data["meta_data"] = response_data["meta_data"]
-            return response_class.from_dict(data)
-        else:
-            return response_class.from_dict(response_data)
+        # Handle wrapped response format: { status: 1, data: {...} }
+        if (
+            response_data
+            and isinstance(response_data, dict)
+            and "status" in response_data
+            and "data" in response_data
+        ):
+            return response_data["data"]
+        
+        # Handle direct response format
+        return response_data
 
 
     def handle_error(self, error: Exception, service_name: str) -> CufinderError:
@@ -55,7 +57,22 @@ class BaseService:
         if isinstance(error, CufinderError):
             return error
 
-        # Handle other exceptions
+        # Handle HTTP errors
+        if hasattr(error, 'response') and error.response:
+            status = getattr(error.response, 'status_code', 500)
+            data = getattr(error.response, 'json', lambda: {})()
+            message = data.get('message', str(error)) if isinstance(data, dict) else str(error)
+            return CufinderError(f"{service_name}: {message}", "API_ERROR", status, data)
+
+        # Handle network errors
+        if hasattr(error, 'request'):
+            return CufinderError(
+                f"{service_name}: Network error - unable to reach API",
+                "NETWORK_ERROR",
+                0
+            )
+
+        # Handle other errors
         return CufinderError(
             f"{service_name}: {str(error)}",
             "UNKNOWN_ERROR",

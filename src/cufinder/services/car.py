@@ -23,16 +23,16 @@ class Car(BaseService):
             
         Example:
             ```python
-            revenue = sdk.car("TechCorp")
-            print(revenue.revenue)  # '$50M - $100M'
+            result = client.car("Apple")
+            print(result.annual_revenue)  # '$100M - $500M'
             ```
         """
 
         try:
-            response_data = self.client.post("/car", {
+            response = self.client.post("/car", {
                 "query": query.strip(),
             })
 
-            return self.parse_response(response_data, CarResponse)
+            return CarResponse.from_dict(self.parse_response_data(response))
         except Exception as error:
             raise self.handle_error(error, "CAR Service")

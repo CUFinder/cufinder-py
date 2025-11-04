@@ -1,6 +1,6 @@
 """Base model class for all data models."""
 
-from typing import Any, Dict
+from typing import Any, Dict, Union
 
 from pydantic import BaseModel as PydanticBaseModel, ConfigDict
 
@@ -27,3 +27,23 @@ class BaseModel(PydanticBaseModel):
     def from_dict(cls, data: Dict[str, Any]) -> "BaseModel":
         """Create model from dictionary."""
         return cls(**data)
+
+
+class BaseResponse(BaseModel):
+    """Base response model for all CUFinder API responses."""
+    query: Union[str, dict]
+    credit_count: int
+
+
+class BaseErrorResponse(BaseModel):
+    """Base error response model."""
+    query: str
+    credit_count: int
+
+
+class ApiResponse(BaseModel):
+    """API response wrapper."""
+    status: int
+    data: Any
+    message: str = None
+    error: str = None

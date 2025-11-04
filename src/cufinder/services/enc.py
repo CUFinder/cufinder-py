@@ -23,17 +23,17 @@ class Enc(BaseService):
             
         Example:
             ```python
-            company = sdk.enc("TechCorp")
-            print(company.company.name)  # 'TechCorp Inc'
-            print(company.company.industry)  # 'Technology'
+            result = client.enc("cufinder")
+            print(result.company.name)  # 'CUFinder'
+            print(result.company.industry)  # 'Technology'
             ```
         """
 
         try:
-            response_data = self.client.post("/enc", {
+            response = self.client.post("/enc", {
                 "query": query.strip(),
             })
 
-            return self.parse_response(response_data, EncResponse)
+            return EncResponse.from_dict(self.parse_response_data(response))
         except Exception as error:
             raise self.handle_error(error, "ENC Service")

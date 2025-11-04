@@ -23,16 +23,17 @@ class Elf(BaseService):
             
         Example:
             ```python
-            funding = sdk.elf("TechCorp")
-            print(funding.fundraising)  # {'total_raised': '$10M', 'rounds': [...]}
+            result = client.elf("cufinder")
+            print(result.fundraising_info.funding_money_raised)
+            print(result.fundraising_info.funding_last_round_type)
             ```
         """
 
         try:
-            response_data = self.client.post("/elf", {
+            response = self.client.post("/elf", {
                 "query": query.strip(),
             })
 
-            return self.parse_response(response_data, ElfResponse)
+            return ElfResponse.from_dict(self.parse_response_data(response))
         except Exception as error:
             raise self.handle_error(error, "ELF Service")

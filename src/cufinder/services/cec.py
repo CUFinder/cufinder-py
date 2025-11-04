@@ -23,16 +23,16 @@ class Cec(BaseService):
             
         Example:
             ```python
-            countries = sdk.cec("TechCorp")
-            print(countries.countries)  # ['United States', 'Canada', 'UK']
+            result = client.cec("cufinder")
+            print(result.countries)  # Country distribution data
             ```
         """
 
         try:
-            response_data = self.client.post("/cec", {
+            response = self.client.post("/cec", {
                 "query": query.strip(),
             })
 
-            return self.parse_response(response_data, CecResponse)
+            return CecResponse.from_dict(self.parse_response_data(response))
         except Exception as error:
             raise self.handle_error(error, "CEC Service")

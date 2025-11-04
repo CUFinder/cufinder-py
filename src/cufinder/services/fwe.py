@@ -24,15 +24,15 @@ class Fwe(BaseService):
             
         Example:
             ```python
-            email = sdk.fwe("https://linkedin.com/in/johndoe")
-            print(email.email)  # 'john.doe@example.com'
+            result = client.fwe("linkedin.com/in/johndoe")
+            print(result.work_email)  # 'john.doe@example.com'
             ```
         """
         try:
-            response_data = self.client.post("/fwe", {
+            response = self.client.post("/fwe", {
                 "linkedin_url": profile_url.strip(),
             })
 
-            return self.parse_response(response_data, FweResponse)
+            return FweResponse.from_dict(self.parse_response_data(response))
         except Exception as error:
             raise self.handle_error(error, "FWE Service")
