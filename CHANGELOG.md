@@ -6,11 +6,14 @@
 - Updated all service method examples with correct SDK usage patterns
 - Fixed inline code examples across all 20 services (CUF, LCUF, DTC, DTE, NTP, REL, FCL, ELF, CAR, FCC, FTS, EPP, FWE, TEP, ENC, CEC, CLO, CSE, PSE, LBS)
 - Improved docstrings with detailed parameter descriptions and working examples
-- Added realistic examples using actual company names (Apple, Stripe, CUFinder, etc.)
+- Added realistic examples using actual company names
 - Ensured all examples use correct response field names and SDK convenience methods
+- Updated all service examples to use `client.service_name()`
 
 #### Bug Fixes
-- Fixed all service examples to use `client.service_name()` instead of incorrect service class calls
+- Fixed parsing results from API responses for all services and improve error handling
+
+
 
 ## 0.1.0
 
@@ -37,6 +40,8 @@
 - Type-safe responses with IDE support
 - Configurable timeouts and retry logic
 - Production-ready error handling
+
+
 
 ## 0.0.1
 
