@@ -37,29 +37,29 @@ client = Cufinder('your-api-key-here', timeout=60)
 
 This SDK covers all 20 Cufinder API (v2) endpoints:
 
-- **CUF** - Company Name to Domain API
-- **LCUF** - Company LinkedIn URL Finder API
-- **DTC** - Domain to Company Name API
-- **DTE** - Company Email Finder API
-- **NTP** - Company Phone Finder API
-- **REL** - Reverse Email Lookup API
-- **FCL** - Company Lookalikes Finder API
-- **ELF** - Company Fundraising API
-- **CAR** - Company Revenue Finder API
-- **FCC** - Company Subsidiaries Finder API
-- **FTS** - Company Tech Stack Finder API
-- **EPP** - LinkedIn Profile Enrichment API
-- **FWE** - LinkedIn Profile Email Finder API
-- **TEP** - Person Enrichment API
-- **ENC** - Company Enrichment API
-- **CEC** - Company Employee Count API
-- **CLO** - Company Locations API
-- **CSE** - Company Search API
-- **PSE** - Person Search API
-- **LBS** - Local Business Search API (Google Maps Search API)
+- **CUF** - [Company Name to Domain](https://apidoc.cufinder.io/apis/company-name-to-domain)
+- **LCUF** - [LinkedIn Company URL Finder](https://apidoc.cufinder.io/apis/company-linkedin-url-finder)
+- **DTC** - [Domain to Company Name](https://apidoc.cufinder.io/apis/domain-to-company-name)
+- **DTE** - [Company Email Finder](https://apidoc.cufinder.io/apis/company-email-finder)
+- **NTP** - [Company Phone Finder](https://apidoc.cufinder.io/apis/company-phone-finder)
+- **REL** - [Reverse Email Lookup](https://apidoc.cufinder.io/apis/reverse-email-lookup)
+- **FCL** - [Company Lookalikes Finder](https://apidoc.cufinder.io/apis/company-lookalikes-finder)
+- **ELF** - [Company Fundraising](https://apidoc.cufinder.io/apis/company-fundraising)
+- **CAR** - [Company Revenue Finder](https://apidoc.cufinder.io/apis/company-revenue-finder)
+- **FCC** - [Company Subsidiaries Finder](https://apidoc.cufinder.io/apis/company-subsidiaries-finder)
+- **FTS** - [Company Tech Stack Finder](https://apidoc.cufinder.io/apis/company-tech-stack-finder)
+- **EPP** - [LinkedIn Profile Enrichment](https://apidoc.cufinder.io/apis/linkedin-profile-enrichment)
+- **FWE** - [LinkedIn Profile Email Finder](https://apidoc.cufinder.io/apis/linkedin-profile-email-finder)
+- **TEP** - [Person Enrichment](https://apidoc.cufinder.io/apis/person-enrichment)
+- **ENC** - [Company Enrichment](https://apidoc.cufinder.io/apis/company-enrichment)
+- **CEC** - [Company Employee Count](https://apidoc.cufinder.io/apis/company-employee-count)
+- **CLO** - [Company Locations](https://apidoc.cufinder.io/apis/company-locations)
+- **CSE** - [Company Search](https://apidoc.cufinder.io/apis/company-search)
+- **PSE** - [Person Search](https://apidoc.cufinder.io/apis/person-search)
+- **LBS** - [Local Business Search (Google Maps Search API)](https://apidoc.cufinder.io/apis/local-business-search-google-maps-search-api)
 
 
-**CUF - Company Name to Domain API**
+**CUF - Company Name to Domain**
 
 Returns the official website URL of a company based on its name.
 
@@ -68,7 +68,7 @@ result = client.cuf('cufinder', 'US')
 print(result)
 ```
 
-**LCUF - Company LinkedIn URL Finder API**
+**LCUF - LinkedIn Company URL Finder**
 
 Finds the official LinkedIn company profile URL from a company name.
 
@@ -77,7 +77,7 @@ result = client.lcuf('cufinder')
 print(result)
 ```
 
-**DTC - Domain to Company Name API**
+**DTC - Domain to Company Name**
 
 Retrieves the registered company name associated with a given website domain.
 
@@ -86,7 +86,7 @@ result = client.dtc('cufinder.io')
 print(result)
 ```
 
-**DTE - Company Email Finder API**
+**DTE - Company Email Finder**
 
 Returns up to five general or role-based business email addresses for a company.
 
@@ -95,7 +95,7 @@ result = client.dte('cufinder.io')
 print(result)
 ```
 
-**NTP - Company Phone Finder API**
+**NTP - Company Phone Finder**
 
 Returns up to two verified phone numbers for a company.
 
@@ -104,7 +104,7 @@ result = client.ntp('apple')
 print(result)
 ```
 
-**REL - Reverse Email Lookup API**
+**REL - Reverse Email Lookup**
 
 Enriches an email address with detailed person and company information.
 
@@ -113,7 +113,7 @@ result = client.rel('iain.mckenzie@stripe.com')
 print(result)
 ```
 
-**FCL - Company Lookalikes Finder API**
+**FCL - Company Lookalikes Finder**
 
 Provides a list of similar companies based on an input company's profile.
 
@@ -122,7 +122,7 @@ result = client.fcl('apple')
 print(result)
 ```
 
-**ELF - Company Fundraising API**
+**ELF - Company Fundraising**
 
 Returns detailed funding information about a company.
 
@@ -131,7 +131,7 @@ result = client.elf('cufinder')
 print(result)
 ```
 
-**CAR - Company Revenue Finder API**
+**CAR - Company Revenue Finder**
 
 Estimates a company's annual revenue based on name.
 
@@ -140,7 +140,7 @@ result = client.car('apple')
 print(result)
 ```
 
-**FCC - Company Subsidiaries Finder API**
+**FCC - Company Subsidiaries Finder**
 
 Identifies known subsidiaries of a parent company.
 
@@ -149,7 +149,7 @@ result = client.fcc('amazon')
 print(result)
 ```
 
-**FTS - Company Tech Stack Finder API**
+**FTS - Company Tech Stack Finder**
 
 Detects the technologies a company uses.
 
@@ -158,7 +158,7 @@ result = client.fts('cufinder')
 print(result)
 ```
 
-**EPP - LinkedIn Profile Enrichment API**
+**EPP - LinkedIn Profile Enrichment**
 
 Takes a LinkedIn profile URL and returns enriched person and company data.
 
@@ -167,7 +167,7 @@ result = client.epp('linkedin.com/in/iain-mckenzie')
 print(result)
 ```
 
-**FWE - LinkedIn Profile Email Finder API**
+**FWE - LinkedIn Profile Email Finder**
 
 Extracts a verified business email address from a LinkedIn profile URL.
 
@@ -176,7 +176,7 @@ result = client.fwe('linkedin.com/in/iain-mckenzie')
 print(result)
 ```
 
-**TEP - Person Enrichment API**
+**TEP - Person Enrichment**
 
 Returns enriched person data based on full name and company name.
 
@@ -185,7 +185,7 @@ result = client.tep('iain mckenzie', 'stripe')
 print(result)
 ```
 
-**ENC - Company Enrichment API**
+**ENC - Company Enrichment**
 
 Provides a complete company profile from a company name.
 
@@ -194,7 +194,7 @@ result = client.enc('cufinder')
 print(result)
 ```
 
-**CEC - Company Employee Count API**
+**CEC - Company Employee Count**
 
 Returns an estimated number of employees for a company.
 
@@ -203,7 +203,7 @@ result = client.cec('cufinder')
 print(result)
 ```
 
-**CLO - Company Locations API**
+**CLO - Company Locations**
 
 Returns the known physical office locations of a company.
 
@@ -212,7 +212,7 @@ result = client.clo('apple')
 print(result)
 ```
 
-**CSE - Company Search API**
+**CSE - Company Search**
 
 Search for companies by keyword, partial name, industry, location, or other filters.
 
@@ -226,7 +226,7 @@ result = client.cse(
 print(result)
 ```
 
-**PSE - Person Search API**
+**PSE - Person Search**
 
 Search for people by name, company, job title, location, or other filters.
 
@@ -238,7 +238,7 @@ result = client.pse(
 print(result)
 ```
 
-**LBS - Local Business Search API (Google Maps Search API)**
+**LBS - Local Business Search (Google Maps Search API)**
 
 Search for local businesses by location, industry, or name.
 
