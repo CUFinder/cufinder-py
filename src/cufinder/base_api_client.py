@@ -96,7 +96,7 @@ class BaseApiClient:
         self.session.headers.update({
             'x-api-key': api_key,
             'Content-Type': 'application/x-www-form-urlencoded',
-            'User-Agent': 'cufinder-py/0.2.0',
+            'User-Agent': 'cufinder-py/1.0.1',
         })
 
         # Set default timeout

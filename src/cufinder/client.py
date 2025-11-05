@@ -1,4 +1,4 @@
-"""HTTP client for the Cufinder API."""
+"""HTTP client for the CUFinder API."""
 
 from typing import Any, Dict, Optional
 

@@ -34,7 +34,7 @@ from .models import *
 from .services import *
 from .types import CseParams, PseParams, LbsParams
 
-__version__ = "0.2.0"
+__version__ = "1.0.1"
 __author__ = "CUFinder Team"
 __email__ = "support@cufinder.io"
 
@@ -42,7 +42,7 @@ __email__ = "support@cufinder.io"
 SDK_INFO = {
     "name": "cufinder-py",
     "version": __version__,
-    "description": "Type-safe Python SDK for the CUFinder B2B Data Enrichment API",
+    "description": "A Python SDK for the CUFinder API that provides access to all company and person enrichment services.",
     "homepage": "https://github.com/cufinder/cufinder-py",
     "repository": "https://github.com/cufinder/cufinder-py.git",
     "author": __author__,

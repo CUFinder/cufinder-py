@@ -14,7 +14,7 @@ requirements = [
 
 setup(
     name="cufinder-py",
-    version="1.0.0",
+    version="1.0.1",
     author="Cufinder Team",
     author_email="support@cufinder.io",
     description="Type-safe Python SDK for easily integrating with the Cufinder API",

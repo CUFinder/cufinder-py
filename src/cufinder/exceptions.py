@@ -1,10 +1,10 @@
-"""Custom exceptions for the Cufinder SDK."""
+"""Custom exceptions for the CUFinder SDK."""
 
 from typing import Any, Dict, Optional
 
 
 class CufinderError(Exception):
-    """Base exception for all Cufinder SDK errors."""
+    """Base exception for all CUFinder SDK errors."""
 
     def __init__(
         self,
