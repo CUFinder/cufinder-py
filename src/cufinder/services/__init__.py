@@ -28,6 +28,7 @@ from .cbc import Cbc
 from .csc import Csc
 from .csn import Csn
 from .nao import Nao
+from .naa import Naa
 
 __all__ = [
     "BaseService",
@@ -58,4 +59,5 @@ __all__ = [
     "Csc",
     "Csn",
     "Nao",
+    "Naa",
 ]

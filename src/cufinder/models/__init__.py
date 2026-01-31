@@ -31,6 +31,7 @@ from .responses import (
     CscResponse,
     CsnResponse,
     NaoResponse,
+    NaaResponse,
 )
 
 __all__ = [
@@ -64,4 +65,5 @@ __all__ = [
     "CscResponse",
     "CsnResponse",
     "NaoResponse",
+    "NaaResponse",
 ]

@@ -96,6 +96,7 @@ __all__ = [
     "CscResponse",
     "CsnResponse",
     "NaoResponse",
+    "NaaResponse",
     # Services
     "BaseService",
     "Cuf",
@@ -125,6 +126,7 @@ __all__ = [
     "Csc",
     "Csn",
     "Nao",
+    "Naa",
     # Types
     "CseParams",
     "PseParams", 

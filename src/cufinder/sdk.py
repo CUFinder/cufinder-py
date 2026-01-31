@@ -4,7 +4,7 @@ from typing import List, Optional
 
 from .client import CufinderClient
 from .services import (
-    Cuf, Epp, Lbs, Dtc, Dte, Ntp, Rel, Fcl, Elf, Car, Fcc, Fts, Fwe, Tep, Enc, Cec, Clo, Cse, Pse, Lcuf, Bcd, Ccp, Isc, Cbc, Csc, Csn, Nao
+    Cuf, Epp, Lbs, Dtc, Dte, Ntp, Rel, Fcl, Elf, Car, Fcc, Fts, Fwe, Tep, Enc, Cec, Clo, Cse, Pse, Lcuf, Bcd, Ccp, Isc, Cbc, Csc, Csn, Nao, Naa
 )
 from .types import CseParams, PseParams, LbsParams
 
@@ -115,6 +115,7 @@ class Cufinder:
         self._csc = Csc(self.client)
         self._csn = Csn(self.client)
         self._nao = Nao(self.client)
+        self._naa = Naa(self.client)
 
     # Company Services
     def cuf(self, company_name: str, country_code: str):
@@ -683,7 +684,7 @@ class Cufinder:
     def nao(self, phone: str):
         """
         Args:
-            url: The phone number you want to normalize
+            phone: The phone number you want to normalize
             
         Returns:
             NaoResponse: Normalized phone
@@ -695,6 +696,22 @@ class Cufinder:
             ```
         """
         return self._nao.normalize_phone(phone)
+
+    def naa(self, address: str):
+        """
+        Args:
+            address: The address you want to normalize
+            
+        Returns:
+            NaoResponse: Normalized address
+            
+        Example:
+            ```python
+            result = client.nao("1095 avenue of the Americas, 6th Avenue ny 10036")
+            print(result)
+            ```
+        """
+        return self._naa.normalize_address(address)
 
     def get_client(self) -> CufinderClient:
         """

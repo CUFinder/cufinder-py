@@ -134,3 +134,7 @@ class CsnResponse(BaseResponse):
 
 class NaoResponse(BaseResponse):
     phone: str
+
+
+class NaaResponse(BaseResponse):
+    address: str
