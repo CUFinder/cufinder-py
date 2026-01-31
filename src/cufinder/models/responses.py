@@ -110,3 +110,7 @@ class LbsResponse(BaseResponse):
 class BcdResponse(BaseResponse):
     """BCD Response - Extract B2B Customers From the Domain"""
     customers: List[str]
+
+
+class CcpResponse(BaseResponse):
+    careers_page_url: str | None

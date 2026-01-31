@@ -4,7 +4,7 @@ from typing import List, Optional
 
 from .client import CufinderClient
 from .services import (
-    Cuf, Epp, Lbs, Dtc, Dte, Ntp, Rel, Fcl, Elf, Car, Fcc, Fts, Fwe, Tep, Enc, Cec, Clo, Cse, Pse, Lcuf, Bcd
+    Cuf, Epp, Lbs, Dtc, Dte, Ntp, Rel, Fcl, Elf, Car, Fcc, Fts, Fwe, Tep, Enc, Cec, Clo, Cse, Pse, Lcuf, Bcd, Ccp
 )
 from .types import CseParams, PseParams, LbsParams
 
@@ -109,6 +109,7 @@ class Cufinder:
         self._pse = Pse(self.client)
         self._lcuf = Lcuf(self.client)
         self._bcd = Bcd(self.client)
+        self._ccp = Ccp(self.client)
 
     # Company Services
     def cuf(self, company_name: str, country_code: str):
@@ -586,11 +587,29 @@ class Cufinder:
             
         Example:
             ```python
-            result = client.bcd('cufinder.io')
+            result = client.bcd('stripe.com')
             print(result)
             ```
         """
         return self._bcd.get_b2b_customers(url)
+
+    def ccp(self, url: str):
+        """
+        Get company name from domain.
+        
+        Args:
+            url: The company domain you want to find it's career page
+            
+        Returns:
+            CcpResponse: Company careers page
+            
+        Example:
+            ```python
+            result = client.ccp("stripe.com")
+            print(result)
+            ```
+        """
+        return self._ccp.find_careers_page(url)
 
     def get_client(self) -> CufinderClient:
         """
