@@ -122,3 +122,7 @@ class IscResponse(BaseResponse):
 
 class CbcResponse(BaseResponse):
     business_type: str
+
+
+class CscResponse(BaseResponse):
+    mission_statement: str | None
