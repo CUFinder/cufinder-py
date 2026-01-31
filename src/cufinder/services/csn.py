@@ -5,23 +5,17 @@ from .base import BaseService
 class Csn(BaseService):
     """
     CSN - Company Snapshot API (V2)
-    
-    Get company snapshot info
     """
 
     def get_company_snapshot(self, url: str) -> CsnResponse:
         """
+        Get company snapshot info
+        
         Args:
             url: The company domain you want to check
             
         Returns:
             CsnResponse: Company mission statement
-            
-        Example:
-            ```python
-            result = client.csc("stripe.com")
-            print(result)
-            ```
         """
         try:
             response = self.client.post("/csn", {

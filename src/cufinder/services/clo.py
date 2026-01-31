@@ -1,5 +1,3 @@
-"""CLO - Company Locations service."""
-
 from ..models.responses import CloResponse
 from .base import BaseService
 
@@ -7,26 +5,17 @@ from .base import BaseService
 class Clo(BaseService):
     """
     CLO - Company Locations API (V2).
-    
-    Returns office locations for a company.
     """
 
     def get_locations(self, query: str) -> CloResponse:
         """
-        Get company locations.
+        Returns office locations for a company.
         
         Args:
             query: Company name to get locations for
             
         Returns:
             CloResponse: Company locations information
-            
-        Example:
-            ```python
-            result = client.clo("Apple")
-            for location in result.locations:
-                print(f"{location.city}, {location.state}, {location.country}")
-            ```
         """
 
         try:

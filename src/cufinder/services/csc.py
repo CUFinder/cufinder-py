@@ -5,23 +5,17 @@ from .base import BaseService
 class Csc(BaseService):
     """
     CSC - Company Mission Statement API (V2)
-    
-    Get company mission statement
     """
 
     def get_company_mission_statment(self, url: str) -> CscResponse:
         """
+        Get company mission statement
+
         Args:
             url: The company domain you want to check
             
         Returns:
             CscResponse: Company mission statement
-            
-        Example:
-            ```python
-            result = client.csc("stripe.com")
-            print(result)
-            ```
         """
         try:
             response = self.client.post("/csc", {

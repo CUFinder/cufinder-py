@@ -5,14 +5,12 @@ from .base import BaseService
 class Naa(BaseService):
     """
     NAA - Address Normalizer API (V2)
-    
-    Get normalized address
     """
 
     def normalize_address(self, address: str) -> NaaResponse:
         """
         Args:
-            url: The address you want to normalize
+            address: The address you want to normalize
             
         Returns:
             NaaResponse: Normalized address

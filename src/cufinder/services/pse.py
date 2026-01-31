@@ -1,5 +1,3 @@
-"""PSE - People Search service."""
-
 from typing import Dict, Union
 
 from ..models.responses import PseResponse
@@ -10,13 +8,11 @@ from .base import BaseService
 class Pse(BaseService):
     """
     PSE - People Search API (V2).
-    
-    Search for people based on various criteria.
     """
 
     def search_people(self, params: Union[PseParams, Dict, None] = None) -> PseResponse:
         """
-        Search for people based on various criteria including name, location, job title, and company.
+        Search for people based on various criteria.
         
         Args:
             params: PSE V2 parameters including:
@@ -34,22 +30,6 @@ class Pse(BaseService):
             
         Returns:
             PseResponse: People search results with peoples list
-            
-        Example:
-            ```python
-            result = client.pse(
-                full_name="morteza heydari",
-                company_name="cufinder"
-            )
-            
-            # Access person information
-            for person in result.peoples:
-                print(f"Name: {person.full_name}")
-                if person.company:
-                    print(f"Company: {person.company.get('name')}")
-                if person.current_job:
-                    print(f"Job: {person.current_job.get('title')}")
-            ```
         """
         try:
             if params is None:

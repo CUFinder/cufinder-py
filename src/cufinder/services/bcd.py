@@ -5,23 +5,17 @@ from .base import BaseService
 class Bcd(BaseService):
     """
     BCD - B2B Customers Finder API (V2).
-    
-    Extract B2B Customers From the Domain.
     """
 
     def get_b2b_customers(self, url: str) -> BcdResponse:
-        """        
+        """  
+        Extract B2B Customers From the Domain.
+
         Args:
             url: The domain to extract B2B customers for
             
         Returns:
             BcdResponse: Customers list
-            
-        Example:
-            ```python
-            result = client.bcd("stripe.com")
-            print(result.customers)
-            ```
         """
         try:
             response = self.client.post("/bcd", {

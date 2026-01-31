@@ -5,23 +5,17 @@ from .base import BaseService
 class Nao(BaseService):
     """
     NAO - Phone Number Normalizer API (V2)
-    
-    Normalize phone number
     """
 
     def normalize_phone(self, phone: str) -> NaoResponse:
         """
+        Normalize phone number
+
         Args:
-            url: The phone number you want to normalize
+            phone: The phone number you want to normalize
             
         Returns:
             NaoResponse: Normalized phone
-            
-        Example:
-            ```python
-            result = client.nao("+18006676389")
-            print(result)
-            ```
         """
         try:
             response = self.client.post("/nao", {

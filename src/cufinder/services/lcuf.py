@@ -1,5 +1,3 @@
-"""LCUF - LinkedIn Company URL Finder service."""
-
 from ..models.responses import LcufResponse
 from .base import BaseService
 
@@ -7,25 +5,17 @@ from .base import BaseService
 class Lcuf(BaseService):
     """
     LCUF - LinkedIn Company URL Finder API (V2).
-    
-    Finds LinkedIn company URLs from company names.
     """
 
     def get_linkedin_url(self, company_name: str) -> LcufResponse:
         """
-        Get LinkedIn URL from company name.
+        Finds LinkedIn company URLs from company names.
         
         Args:
             company_name: The name of the company to find LinkedIn URL for
             
         Returns:
             LcufResponse: LinkedIn URL information
-            
-        Example:
-            ```python
-            result = client.lcuf("cufinder")
-            print(result.linkedin_url)  # 'https://linkedin.com/company/cufinder'
-            ```
         """
 
         try:

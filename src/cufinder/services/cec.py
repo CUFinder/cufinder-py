@@ -1,5 +1,3 @@
-"""CEC - Company Employee Countries service."""
-
 from ..models.responses import CecResponse
 from .base import BaseService
 
@@ -7,25 +5,17 @@ from .base import BaseService
 class Cec(BaseService):
     """
     CEC - Company Employee Countries API (V2).
-    
-    Returns countries where a company has employees.
     """
 
     def get_employee_countries(self, query: str) -> CecResponse:
         """
-        Get company employee countries.
+        Returns countries where a company has employees.
         
         Args:
             query: Company name to get employee countries for
             
         Returns:
             CecResponse: Employee countries information
-            
-        Example:
-            ```python
-            result = client.cec("cufinder")
-            print(result.countries)  # Country distribution data
-            ```
         """
 
         try:
