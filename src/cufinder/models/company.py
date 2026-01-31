@@ -136,3 +136,11 @@ class CloCompanyLocation(BaseModel):
     line2: Optional[str] = None
     latitude: Optional[float] = None
     longitude: Optional[float] = None
+
+
+class SnapshotModel(BaseModel):
+    """Snapshot info model"""
+    icp: str | None
+    target_industries: List[str];
+    target_personas: List[str];
+    value_proposition: str | None

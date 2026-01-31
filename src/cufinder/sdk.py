@@ -4,7 +4,7 @@ from typing import List, Optional
 
 from .client import CufinderClient
 from .services import (
-    Cuf, Epp, Lbs, Dtc, Dte, Ntp, Rel, Fcl, Elf, Car, Fcc, Fts, Fwe, Tep, Enc, Cec, Clo, Cse, Pse, Lcuf, Bcd, Ccp, Isc, Cbc, Csc
+    Cuf, Epp, Lbs, Dtc, Dte, Ntp, Rel, Fcl, Elf, Car, Fcc, Fts, Fwe, Tep, Enc, Cec, Clo, Cse, Pse, Lcuf, Bcd, Ccp, Isc, Cbc, Csc, Csn
 )
 from .types import CseParams, PseParams, LbsParams
 
@@ -113,6 +113,7 @@ class Cufinder:
         self._isc = Isc(self.client)
         self._cbc = Cbc(self.client)
         self._csc = Csc(self.client)
+        self._csn = Csn(self.client)
 
     # Company Services
     def cuf(self, company_name: str, country_code: str):
@@ -652,7 +653,7 @@ class Cufinder:
             url: The company domain you want to check
             
         Returns:
-            CscResponse: yes or no
+            CscResponse: Company mission statement
             
         Example:
             ```python
@@ -661,6 +662,22 @@ class Cufinder:
             ```
         """
         return self._csc.get_company_mission_statment(url)
+
+    def csn(self, url: str):
+        """
+        Args:
+            url: The company domain you want to check
+            
+        Returns:
+            CsnResponse: Company snapshot info
+            
+        Example:
+            ```python
+            result = client.csn("stripe.com")
+            print(result)
+            ```
+        """
+        return self._csn.get_company_snapshot(url)
 
     def get_client(self) -> CufinderClient:
         """

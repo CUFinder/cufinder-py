@@ -3,7 +3,7 @@
 from typing import List, Optional, Union
 
 from .base import BaseResponse
-from .company import Company, CompanySearchResult, LocalBusinessResult, LookalikeCompany, FundraisingInfo, CloCompanyLocation
+from .company import Company, CompanySearchResult, LocalBusinessResult, LookalikeCompany, FundraisingInfo, CloCompanyLocation, SnapshotModel
 from .person import Person, PersonSearchResult, TepPerson
 
 
@@ -126,3 +126,7 @@ class CbcResponse(BaseResponse):
 
 class CscResponse(BaseResponse):
     mission_statement: str | None
+
+
+class CsnResponse(BaseResponse):
+    company_snapshot: SnapshotModel
