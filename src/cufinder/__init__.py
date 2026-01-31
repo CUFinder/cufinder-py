@@ -89,6 +89,7 @@ __all__ = [
     "CseResponse",
     "PseResponse",
     "LcufResponse",
+    "BcdResponse",
     # Services
     "BaseService",
     "Cuf",
@@ -111,6 +112,7 @@ __all__ = [
     "Cse",
     "Pse",
     "Lcuf",
+    "Bcd",
     # Types
     "CseParams",
     "PseParams", 

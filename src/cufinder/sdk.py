@@ -4,7 +4,7 @@ from typing import List, Optional
 
 from .client import CufinderClient
 from .services import (
-    Cuf, Epp, Lbs, Dtc, Dte, Ntp, Rel, Fcl, Elf, Car, Fcc, Fts, Fwe, Tep, Enc, Cec, Clo, Cse, Pse, Lcuf
+    Cuf, Epp, Lbs, Dtc, Dte, Ntp, Rel, Fcl, Elf, Car, Fcc, Fts, Fwe, Tep, Enc, Cec, Clo, Cse, Pse, Lcuf, Bcd
 )
 from .types import CseParams, PseParams, LbsParams
 
@@ -13,12 +13,12 @@ class Cufinder:
     """
     Main CUFinder SDK class.
     
-    Provides access to all 20 CUFinder API services with improved error handling,
+    Provides access to all 28 CUFinder API services with improved error handling,
     parameter validation, and response models that match the TypeScript SDK.
     
     Features:
-    - All 20 CUFinder services (CUF, LCUF, DTC, DTE, NTP, REL, FCL, ELF, CAR, 
-      FCC, FTS, EPP, FWE, TEP, ENC, CEC, CLO, CSE, PSE, LBS)
+    - All 28 CUFinder services (CUF, LCUF, DTC, DTE, NTP, REL, FCL, ELF, CAR, 
+      FCC, FTS, EPP, FWE, TEP, ENC, CEC, CLO, CSE, PSE, LBS, BCD, CCP, ISC, CBC, CSC, CSN, NAO, NAA)
     - Type-safe parameter classes for search services
     - Comprehensive error handling with specific exception types
     - Response models that match the TypeScript SDK exactly
@@ -108,6 +108,7 @@ class Cufinder:
         self._cse = Cse(self.client)
         self._pse = Pse(self.client)
         self._lcuf = Lcuf(self.client)
+        self._bcd = Bcd(self.client)
 
     # Company Services
     def cuf(self, company_name: str, country_code: str):
@@ -572,6 +573,24 @@ class Cufinder:
         """
         params = {k: v for k, v in locals().items() if k != 'self' and v is not None}
         return self._pse.search_people(params if params else None)
+
+    def bcd(self, url: str):
+        """
+        Get company name from domain.
+        
+        Args:
+            url: The domain to extract B2B customers for
+            
+        Returns:
+            BcdResponse: Company name information
+            
+        Example:
+            ```python
+            result = client.bcd('cufinder.io')
+            print(result)
+            ```
+        """
+        return self._bcd.get_b2b_customers(url)
 
     def get_client(self) -> CufinderClient:
         """

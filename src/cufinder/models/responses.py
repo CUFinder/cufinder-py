@@ -105,3 +105,8 @@ class PseResponse(BaseResponse):
 class LbsResponse(BaseResponse):
     """LBS Response - Local Business Search"""
     companies: List[LocalBusinessResult]
+
+
+class BcdResponse(BaseResponse):
+    """BCD Response - Extract B2B Customers From the Domain"""
+    customers: List[str]

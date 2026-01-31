@@ -21,6 +21,7 @@ from .clo import Clo
 from .cse import Cse
 from .pse import Pse
 from .lcuf import Lcuf
+from .bcd import Bcd
 
 __all__ = [
     "BaseService",
@@ -44,4 +45,5 @@ __all__ = [
     "Cse",
     "Pse",
     "Lcuf",
+    "Bcd",
 ]
