@@ -27,6 +27,7 @@ from .responses import (
     BcdResponse,
     CcpResponse,
     IscResponse,
+    CbcResponse,
 )
 
 __all__ = [
@@ -56,4 +57,5 @@ __all__ = [
     "BcdResponse",
     "CcpResponse",
     "IscResponse",
+    "CbcResponse",
 ]

@@ -24,6 +24,7 @@ from .lcuf import Lcuf
 from .bcd import Bcd
 from .ccp import Ccp
 from .isc import Isc
+from .cbc import Cbc
 
 __all__ = [
     "BaseService",
@@ -50,4 +51,5 @@ __all__ = [
     "Bcd",
     "Ccp",
     "Isc",
+    "Cbc",
 ]

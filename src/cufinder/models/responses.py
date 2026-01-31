@@ -118,3 +118,7 @@ class CcpResponse(BaseResponse):
 
 class IscResponse(BaseResponse):
     is_saas: str
+
+
+class CbcResponse(BaseResponse):
+    business_type: str
