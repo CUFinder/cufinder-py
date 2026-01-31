@@ -114,3 +114,7 @@ class BcdResponse(BaseResponse):
 
 class CcpResponse(BaseResponse):
     careers_page_url: str | None
+
+
+class IscResponse(BaseResponse):
+    is_saas: str

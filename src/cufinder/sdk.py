@@ -4,7 +4,7 @@ from typing import List, Optional
 
 from .client import CufinderClient
 from .services import (
-    Cuf, Epp, Lbs, Dtc, Dte, Ntp, Rel, Fcl, Elf, Car, Fcc, Fts, Fwe, Tep, Enc, Cec, Clo, Cse, Pse, Lcuf, Bcd, Ccp
+    Cuf, Epp, Lbs, Dtc, Dte, Ntp, Rel, Fcl, Elf, Car, Fcc, Fts, Fwe, Tep, Enc, Cec, Clo, Cse, Pse, Lcuf, Bcd, Ccp, Isc
 )
 from .types import CseParams, PseParams, LbsParams
 
@@ -110,6 +110,7 @@ class Cufinder:
         self._lcuf = Lcuf(self.client)
         self._bcd = Bcd(self.client)
         self._ccp = Ccp(self.client)
+        self._isc = Isc(self.client)
 
     # Company Services
     def cuf(self, company_name: str, country_code: str):
@@ -610,6 +611,22 @@ class Cufinder:
             ```
         """
         return self._ccp.find_careers_page(url)
+
+    def isc(self, url: str):
+        """
+        Args:
+            url: The company domain you want to check is saas or not
+            
+        Returns:
+            IscResponse: Company careers page
+            
+        Example:
+            ```python
+            result = client.isc("stripe.com")
+            print(result)
+            ```
+        """
+        return self._isc.is_saas(url)
 
     def get_client(self) -> CufinderClient:
         """
