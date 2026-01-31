@@ -130,3 +130,7 @@ class CscResponse(BaseResponse):
 
 class CsnResponse(BaseResponse):
     company_snapshot: SnapshotModel
+
+
+class NaoResponse(BaseResponse):
+    phone: str

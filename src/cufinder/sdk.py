@@ -4,7 +4,7 @@ from typing import List, Optional
 
 from .client import CufinderClient
 from .services import (
-    Cuf, Epp, Lbs, Dtc, Dte, Ntp, Rel, Fcl, Elf, Car, Fcc, Fts, Fwe, Tep, Enc, Cec, Clo, Cse, Pse, Lcuf, Bcd, Ccp, Isc, Cbc, Csc, Csn
+    Cuf, Epp, Lbs, Dtc, Dte, Ntp, Rel, Fcl, Elf, Car, Fcc, Fts, Fwe, Tep, Enc, Cec, Clo, Cse, Pse, Lcuf, Bcd, Ccp, Isc, Cbc, Csc, Csn, Nao
 )
 from .types import CseParams, PseParams, LbsParams
 
@@ -114,6 +114,7 @@ class Cufinder:
         self._cbc = Cbc(self.client)
         self._csc = Csc(self.client)
         self._csn = Csn(self.client)
+        self._nao = Nao(self.client)
 
     # Company Services
     def cuf(self, company_name: str, country_code: str):
@@ -678,6 +679,22 @@ class Cufinder:
             ```
         """
         return self._csn.get_company_snapshot(url)
+
+    def nao(self, phone: str):
+        """
+        Args:
+            url: The phone number you want to normalize
+            
+        Returns:
+            NaoResponse: Normalized phone
+            
+        Example:
+            ```python
+            result = client.nao("+18006676389")
+            print(result)
+            ```
+        """
+        return self._nao.normalize_phone(phone)
 
     def get_client(self) -> CufinderClient:
         """
