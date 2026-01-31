@@ -1,5 +1,3 @@
-"""CSE - Company Search service."""
-
 from typing import Dict, Optional, Union
 
 from ..models.responses import CseResponse
@@ -10,13 +8,11 @@ from .base import BaseService
 class Cse(BaseService):
     """
     CSE - Company Search API (V2).
-    
-    Search for companies based on various criteria.
     """
 
     def search_companies(self, params: Union[CseParams, Dict, None] = None) -> CseResponse:
         """
-        Search companies using the CSE V2 API.
+        Search for companies based on various criteria.
         
         Args:
             params: CSE V2 parameters object containing search criteria

@@ -1,5 +1,3 @@
-"""FCL - Company Lookalikes Finder service."""
-
 from ..models.responses import FclResponse
 from .base import BaseService
 
@@ -7,26 +5,17 @@ from .base import BaseService
 class Fcl(BaseService):
     """
     FCL - Company Lookalikes Finder API (V2).
-    
-    Provides a list of similar companies based on an input company's profile.
     """
 
     def get_lookalikes(self, query: str) -> FclResponse:
         """
-        Get company lookalikes.
+        Provides a list of similar companies based on an input company's profile.
         
         Args:
             query: Company name or description to find similar companies for
             
         Returns:
             FclResponse: List of similar companies
-            
-        Example:
-            ```python
-            result = client.fcl("Apple")
-            for company in result.companies:
-                print(f"{company.name} - {company.industry}")
-            ```
         """
 
         try:

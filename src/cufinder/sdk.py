@@ -4,7 +4,7 @@ from typing import List, Optional
 
 from .client import CufinderClient
 from .services import (
-    Cuf, Epp, Lbs, Dtc, Dte, Ntp, Rel, Fcl, Elf, Car, Fcc, Fts, Fwe, Tep, Enc, Cec, Clo, Cse, Pse, Lcuf
+    Cuf, Epp, Lbs, Dtc, Dte, Ntp, Rel, Fcl, Elf, Car, Fcc, Fts, Fwe, Tep, Enc, Cec, Clo, Cse, Pse, Lcuf, Bcd, Ccp, Isc, Cbc, Csc, Csn, Nao, Naa
 )
 from .types import CseParams, PseParams, LbsParams
 
@@ -13,12 +13,12 @@ class Cufinder:
     """
     Main CUFinder SDK class.
     
-    Provides access to all 20 CUFinder API services with improved error handling,
+    Provides access to all 28 CUFinder API services with improved error handling,
     parameter validation, and response models that match the TypeScript SDK.
     
     Features:
-    - All 20 CUFinder services (CUF, LCUF, DTC, DTE, NTP, REL, FCL, ELF, CAR, 
-      FCC, FTS, EPP, FWE, TEP, ENC, CEC, CLO, CSE, PSE, LBS)
+    - All 28 CUFinder services (CUF, LCUF, DTC, DTE, NTP, REL, FCL, ELF, CAR, 
+      FCC, FTS, EPP, FWE, TEP, ENC, CEC, CLO, CSE, PSE, LBS, BCD, CCP, ISC, CBC, CSC, CSN, NAO, NAA)
     - Type-safe parameter classes for search services
     - Comprehensive error handling with specific exception types
     - Response models that match the TypeScript SDK exactly
@@ -108,6 +108,14 @@ class Cufinder:
         self._cse = Cse(self.client)
         self._pse = Pse(self.client)
         self._lcuf = Lcuf(self.client)
+        self._bcd = Bcd(self.client)
+        self._ccp = Ccp(self.client)
+        self._isc = Isc(self.client)
+        self._cbc = Cbc(self.client)
+        self._csc = Csc(self.client)
+        self._csn = Csn(self.client)
+        self._nao = Nao(self.client)
+        self._naa = Naa(self.client)
 
     # Company Services
     def cuf(self, company_name: str, country_code: str):
@@ -572,6 +580,138 @@ class Cufinder:
         """
         params = {k: v for k, v in locals().items() if k != 'self' and v is not None}
         return self._pse.search_people(params if params else None)
+
+    def bcd(self, url: str):
+        """
+        Get company name from domain.
+        
+        Args:
+            url: The domain to extract B2B customers for
+            
+        Returns:
+            BcdResponse: Company name information
+            
+        Example:
+            ```python
+            result = client.bcd('stripe.com')
+            print(result)
+            ```
+        """
+        return self._bcd.get_b2b_customers(url)
+
+    def ccp(self, url: str):
+        """
+        Get company name from domain.
+        
+        Args:
+            url: The company domain you want to find it's career page
+            
+        Returns:
+            CcpResponse: Company careers page
+            
+        Example:
+            ```python
+            result = client.ccp("stripe.com")
+            print(result)
+            ```
+        """
+        return self._ccp.find_careers_page(url)
+
+    def isc(self, url: str):
+        """
+        Args:
+            url: The company domain you want to check is saas or not
+            
+        Returns:
+            IscResponse: Company careers page
+            
+        Example:
+            ```python
+            result = client.isc("stripe.com")
+            print(result)
+            ```
+        """
+        return self._isc.is_saas(url)
+
+    def cbc(self, url: str):
+        """
+        Args:
+            url: The company domain you want to check is saas or not
+            
+        Returns:
+            CbcResponse: Compnay business type
+            
+        Example:
+            ```python
+            result = client.cbc("stripe.com")
+            print(result)
+            ```
+        """
+        return self._cbc.get_company_business_type(url)
+
+    def csc(self, url: str):
+        """
+        Args:
+            url: The company domain you want to check
+            
+        Returns:
+            CscResponse: Company mission statement
+            
+        Example:
+            ```python
+            result = client.csc("stripe.com")
+            print(result)
+            ```
+        """
+        return self._csc.get_company_mission_statment(url)
+
+    def csn(self, url: str):
+        """
+        Args:
+            url: The company domain you want to check
+            
+        Returns:
+            CsnResponse: Company snapshot info
+            
+        Example:
+            ```python
+            result = client.csn("stripe.com")
+            print(result)
+            ```
+        """
+        return self._csn.get_company_snapshot(url)
+
+    def nao(self, phone: str):
+        """
+        Args:
+            phone: The phone number you want to normalize
+            
+        Returns:
+            NaoResponse: Normalized phone
+            
+        Example:
+            ```python
+            result = client.nao("+18006676389")
+            print(result)
+            ```
+        """
+        return self._nao.normalize_phone(phone)
+
+    def naa(self, address: str):
+        """
+        Args:
+            address: The address you want to normalize
+            
+        Returns:
+            NaoResponse: Normalized address
+            
+        Example:
+            ```python
+            result = client.nao("1095 avenue of the Americas, 6th Avenue ny 10036")
+            print(result)
+            ```
+        """
+        return self._naa.normalize_address(address)
 
     def get_client(self) -> CufinderClient:
         """

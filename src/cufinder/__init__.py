@@ -34,7 +34,7 @@ from .models import *
 from .services import *
 from .types import CseParams, PseParams, LbsParams
 
-__version__ = "1.0.1"
+__version__ = "1.1.0"
 __author__ = "CUFinder Team"
 __email__ = "support@cufinder.io"
 
@@ -89,6 +89,14 @@ __all__ = [
     "CseResponse",
     "PseResponse",
     "LcufResponse",
+    "BcdResponse",
+    "CcpResponse",
+    "IscResponse",
+    "CbcResponse",
+    "CscResponse",
+    "CsnResponse",
+    "NaoResponse",
+    "NaaResponse",
     # Services
     "BaseService",
     "Cuf",
@@ -111,6 +119,14 @@ __all__ = [
     "Cse",
     "Pse",
     "Lcuf",
+    "Bcd",
+    "Ccp",
+    "Isc",
+    "Cbc",
+    "Csc",
+    "Csn",
+    "Nao",
+    "Naa",
     # Types
     "CseParams",
     "PseParams", 

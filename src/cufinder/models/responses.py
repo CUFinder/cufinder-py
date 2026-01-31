@@ -3,7 +3,7 @@
 from typing import List, Optional, Union
 
 from .base import BaseResponse
-from .company import Company, CompanySearchResult, LocalBusinessResult, LookalikeCompany, FundraisingInfo, CloCompanyLocation
+from .company import Company, CompanySearchResult, LocalBusinessResult, LookalikeCompany, FundraisingInfo, CloCompanyLocation, SnapshotModel
 from .person import Person, PersonSearchResult, TepPerson
 
 
@@ -105,3 +105,36 @@ class PseResponse(BaseResponse):
 class LbsResponse(BaseResponse):
     """LBS Response - Local Business Search"""
     companies: List[LocalBusinessResult]
+
+
+class BcdResponse(BaseResponse):
+    """BCD Response - Extract B2B Customers From the Domain"""
+    customers: List[str]
+
+
+class CcpResponse(BaseResponse):
+    careers_page_url: str | None
+
+
+class IscResponse(BaseResponse):
+    is_saas: str
+
+
+class CbcResponse(BaseResponse):
+    business_type: str
+
+
+class CscResponse(BaseResponse):
+    mission_statement: str | None
+
+
+class CsnResponse(BaseResponse):
+    company_snapshot: SnapshotModel
+
+
+class NaoResponse(BaseResponse):
+    phone: str
+
+
+class NaaResponse(BaseResponse):
+    address: str
