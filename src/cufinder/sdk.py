@@ -4,7 +4,7 @@ from typing import List, Optional
 
 from .client import CufinderClient
 from .services import (
-    Cuf, Epp, Lbs, Dtc, Dte, Ntp, Rel, Fcl, Elf, Car, Fcc, Fts, Fwe, Tep, Enc, Cec, Clo, Cse, Pse, Lcuf, Bcd, Ccp, Isc, Cbc, Csc, Csn, Nao, Naa
+    Cuf, Epp, Lbs, Dtc, Dte, Ntp, Rel, Fcl, Elf, Car, Fcc, Fts, Fwe, Tep, Enc, Cec, Clo, Cse, Pse, Lcuf, Bcd, Ccp, Isc, Cbc, Csc, Csn, Nao, Naa, Cef
 )
 from .types import CseParams, PseParams, LbsParams
 
@@ -116,6 +116,7 @@ class Cufinder:
         self._csn = Csn(self.client)
         self._nao = Nao(self.client)
         self._naa = Naa(self.client)
+        self._cef = Cef(self.client)
 
     # Company Services
     def cuf(self, company_name: str, country_code: str):
@@ -712,6 +713,26 @@ class Cufinder:
             ```
         """
         return self._naa.normalize_address(address)
+
+    def cef(self, query: str, page: int = None):
+        """
+        Get company employees.
+
+        Args:
+            query: Company name to find employees for
+            page: Page number for pagination
+
+        Returns:
+            CefResponse: Company employee information
+
+        Example:
+            ```python
+            result = client.cef('cufinder', 1)
+            for emp in result.employees:
+                print(f"name: {emp.full_name}, title: {emp.job_title}")
+            ```
+        """
+        return self._cef.find_company_employees(query, page)
 
     def get_client(self) -> CufinderClient:
         """

@@ -2,7 +2,7 @@
 
 from .base import BaseModel
 from .company import Company
-from .person import Person
+from .person import Person, CefEmployee
 from .responses import (
     CufResponse,
     EppResponse,
@@ -32,6 +32,7 @@ from .responses import (
     CsnResponse,
     NaoResponse,
     NaaResponse,
+    CefResponse,
 )
 
 __all__ = [
@@ -66,4 +67,6 @@ __all__ = [
     "CsnResponse",
     "NaoResponse",
     "NaaResponse",
+    "CefResponse",
+    "CefEmployee",
 ]

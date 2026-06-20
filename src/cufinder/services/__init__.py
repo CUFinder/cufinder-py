@@ -29,6 +29,7 @@ from .csc import Csc
 from .csn import Csn
 from .nao import Nao
 from .naa import Naa
+from .cef import Cef
 
 __all__ = [
     "BaseService",
@@ -60,4 +61,5 @@ __all__ = [
     "Csn",
     "Nao",
     "Naa",
+    "Cef",
 ]

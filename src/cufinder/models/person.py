@@ -164,3 +164,28 @@ class TepPerson(Person):
     """TEP Person extends Person with email and phone"""
     email: Optional[str] = None
     phone: Optional[str] = None
+
+
+class CefEmployee(BaseModel):
+    """CEF Employee model"""
+    full_name: Optional[str] = None
+    first_name: Optional[str] = None
+    last_name: Optional[str] = None
+    linkedin_url: Optional[str] = None
+    summary: Optional[str] = None
+    avatar: Optional[str] = None
+    country: Optional[str] = None
+    state: Optional[str] = None
+    city: Optional[str] = None
+    job_title: Optional[str] = None
+    job_title_categories: Optional[List[str]] = None
+    company_name: Optional[str] = None
+    company_linkedin: Optional[str] = None
+    company_website: Optional[str] = None
+    company_size: Optional[str] = None
+    company_industry: Optional[str] = None
+    company_facebook: Optional[str] = None
+    company_twitter: Optional[str] = None
+    company_country: Optional[str] = None
+    company_state: Optional[str] = None
+    company_city: Optional[str] = None

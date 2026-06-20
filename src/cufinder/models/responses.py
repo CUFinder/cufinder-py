@@ -4,7 +4,7 @@ from typing import List, Optional, Union
 
 from .base import BaseResponse
 from .company import Company, CompanySearchResult, LocalBusinessResult, LookalikeCompany, FundraisingInfo, CloCompanyLocation, SnapshotModel
-from .person import Person, PersonSearchResult, TepPerson
+from .person import Person, PersonSearchResult, TepPerson, CefEmployee
 
 
 class CufResponse(BaseResponse):
@@ -138,3 +138,8 @@ class NaoResponse(BaseResponse):
 
 class NaaResponse(BaseResponse):
     address: str
+
+
+class CefResponse(BaseResponse):
+    """CEF Response - Company Employee Finder"""
+    employees: List[CefEmployee]
