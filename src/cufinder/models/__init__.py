@@ -33,6 +33,7 @@ from .responses import (
     NaoResponse,
     NaaResponse,
     CefResponse,
+    NacResponse,
 )
 
 __all__ = [
@@ -69,4 +70,5 @@ __all__ = [
     "NaaResponse",
     "CefResponse",
     "CefEmployee",
+    "NacResponse",
 ]

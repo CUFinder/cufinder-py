@@ -4,7 +4,7 @@ from typing import List, Optional
 
 from .client import CufinderClient
 from .services import (
-    Cuf, Epp, Lbs, Dtc, Dte, Ntp, Rel, Fcl, Elf, Car, Fcc, Fts, Fwe, Tep, Enc, Cec, Clo, Cse, Pse, Lcuf, Bcd, Ccp, Isc, Cbc, Csc, Csn, Nao, Naa, Cef
+    Cuf, Epp, Lbs, Dtc, Dte, Ntp, Rel, Fcl, Elf, Car, Fcc, Fts, Fwe, Tep, Enc, Cec, Clo, Cse, Pse, Lcuf, Bcd, Ccp, Isc, Cbc, Csc, Csn, Nao, Naa, Cef, Nac
 )
 from .types import CseParams, PseParams, LbsParams
 
@@ -117,6 +117,7 @@ class Cufinder:
         self._nao = Nao(self.client)
         self._naa = Naa(self.client)
         self._cef = Cef(self.client)
+        self._nac = Nac(self.client)
 
     # Company Services
     def cuf(self, company_name: str, country_code: str):
@@ -733,6 +734,24 @@ class Cufinder:
             ```
         """
         return self._cef.find_company_employees(query, page)
+
+    def nac(self, company: str):
+        """
+        Normalize company name.
+
+        Args:
+            company: Company name to normalize
+
+        Returns:
+            NacResponse: Normalized company name
+
+        Example:
+            ```python
+            result = client.nac('Cufinder')
+            print(result.company)
+            ```
+        """
+        return self._nac.normalize_company_name(company)
 
     def get_client(self) -> CufinderClient:
         """

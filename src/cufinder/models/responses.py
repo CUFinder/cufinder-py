@@ -143,3 +143,8 @@ class NaaResponse(BaseResponse):
 class CefResponse(BaseResponse):
     """CEF Response - Company Employee Finder"""
     employees: List[CefEmployee]
+
+
+class NacResponse(BaseResponse):
+    """NAC Response - Company Name Normalizer"""
+    company: str
