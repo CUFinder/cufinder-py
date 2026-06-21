@@ -173,3 +173,38 @@ class CaaActivity(BaseModel):
 class CaaResponse(BaseResponse):
     """CAA Response - Company Activity API"""
     activities: List[CaaActivity]
+
+
+class CjaCompany(BaseModel):
+    """CJA Company model"""
+    name: Optional[str] = None
+    industry: Optional[str] = None
+    website: Optional[str] = None
+    linkedin: Optional[str] = None
+    followers_count: Optional[int] = None
+    employees: Optional[dict] = None
+    founded_date: Optional[str] = None
+    annual_revenue: Optional[str] = None
+    funding_amount: Optional[str] = None
+    main_location: Optional[dict] = None
+
+
+class CjaJob(BaseModel):
+    """CJA Job model"""
+    job_id: Optional[str] = None
+    title: Optional[str] = None
+    url: Optional[str] = None
+    location: Optional[str] = None
+    posted_at: Optional[str] = None
+    posted_at_text: Optional[str] = None
+
+
+class CjaJobItem(BaseModel):
+    """CJA Job Item model"""
+    company: CjaCompany
+    job: CjaJob
+
+
+class CjaResponse(BaseResponse):
+    """CJA Response - Company Jobs API"""
+    jobs: List[CjaJobItem]

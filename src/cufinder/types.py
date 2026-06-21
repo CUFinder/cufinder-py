@@ -238,3 +238,50 @@ class LbsParams:
     def to_dict(self) -> dict:
         """Convert to dictionary, excluding None values"""
         return {k: v for k, v in self.__dict__.items() if v is not None}
+
+
+class CjaParams:
+    """
+    CJA - Company Jobs API parameters.
+    """
+    def __init__(
+        self,
+        name: Optional[str] = None,
+        country: Optional[str] = None,
+        state: Optional[str] = None,
+        city: Optional[str] = None,
+        followers_count_min: Optional[int] = None,
+        followers_count_max: Optional[int] = None,
+        industry: Optional[str] = None,
+        employee_size: Optional[str] = None,
+        founded_after_year: Optional[int] = None,
+        founded_before_year: Optional[int] = None,
+        funding_amount_max: Optional[int] = None,
+        funding_amount_min: Optional[int] = None,
+        products_services: Optional[List[str]] = None,
+        is_school: Optional[bool] = None,
+        annual_revenue_min: Optional[int] = None,
+        annual_revenue_max: Optional[int] = None,
+        page: Optional[int] = None,
+    ):
+        self.name = name
+        self.country = country
+        self.state = state
+        self.city = city
+        self.followers_count_min = followers_count_min
+        self.followers_count_max = followers_count_max
+        self.industry = industry
+        self.employee_size = employee_size
+        self.founded_after_year = founded_after_year
+        self.founded_before_year = founded_before_year
+        self.funding_amount_max = funding_amount_max
+        self.funding_amount_min = funding_amount_min
+        self.products_services = products_services
+        self.is_school = is_school
+        self.annual_revenue_min = annual_revenue_min
+        self.annual_revenue_max = annual_revenue_max
+        self.page = page
+
+    def to_dict(self) -> dict:
+        """Convert to dictionary, excluding None values"""
+        return {k: v for k, v in self.__dict__.items() if v is not None}

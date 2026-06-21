@@ -4,9 +4,9 @@ from typing import List, Optional
 
 from .client import CufinderClient
 from .services import (
-    Cuf, Epp, Lbs, Dtc, Dte, Ntp, Rel, Fcl, Elf, Car, Fcc, Fts, Fwe, Tep, Enc, Cec, Clo, Cse, Pse, Lcuf, Bcd, Ccp, Isc, Cbc, Csc, Csn, Nao, Naa, Cef, Nac, Caa
+    Cuf, Epp, Lbs, Dtc, Dte, Ntp, Rel, Fcl, Elf, Car, Fcc, Fts, Fwe, Tep, Enc, Cec, Clo, Cse, Pse, Lcuf, Bcd, Ccp, Isc, Cbc, Csc, Csn, Nao, Naa, Cef, Nac, Caa, Cja
 )
-from .types import CseParams, PseParams, LbsParams
+from .types import CseParams, PseParams, LbsParams, CjaParams
 
 
 class Cufinder:
@@ -119,6 +119,7 @@ class Cufinder:
         self._cef = Cef(self.client)
         self._nac = Nac(self.client)
         self._caa = Caa(self.client)
+        self._cja = Cja(self.client)
 
     # Company Services
     def cuf(self, company_name: str, country_code: str):
@@ -773,6 +774,33 @@ class Cufinder:
             ```
         """
         return self._caa.get_company_activities(query, page)
+
+    def cja(self, name: str = None, country: str = None, state: str = None, city: str = None,
+            industry: str = None, employee_size: str = None, page: int = None):
+        """
+        Search company jobs.
+
+        Args:
+            name: Company name to search for
+            country: Country to filter by
+            state: State/Province to filter by
+            city: City to filter by
+            industry: Industry to filter by
+            employee_size: Employee size range
+            page: Page number for pagination
+
+        Returns:
+            CjaResponse: Company jobs information
+
+        Example:
+            ```python
+            result = client.cja(name='cufinder', page=1)
+            for item in result.jobs:
+                print(f"company: {item.company.name}, job: {item.job.title}")
+            ```
+        """
+        params = {k: v for k, v in locals().items() if k != 'self' and v is not None}
+        return self._cja.search_company_jobs(params if params else None)
 
     def get_client(self) -> CufinderClient:
         """

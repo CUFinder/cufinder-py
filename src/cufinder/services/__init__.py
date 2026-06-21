@@ -32,6 +32,7 @@ from .naa import Naa
 from .cef import Cef
 from .nac import Nac
 from .caa import Caa
+from .cja import Cja
 
 __all__ = [
     "BaseService",
@@ -66,4 +67,5 @@ __all__ = [
     "Cef",
     "Nac",
     "Caa",
+    "Cja",
 ]
