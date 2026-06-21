@@ -35,7 +35,7 @@ client = Cufinder('your-api-key-here', timeout=60)
 
 ## API Reference
 
-This SDK covers all 28 Cufinder API (v2) endpoints:
+This SDK covers all 32 Cufinder API (v2) endpoints:
 
 - **CUF** - [Company Name to Domain](https://apidoc.cufinder.io/apis/company-name-to-domain)
 - **LCUF** - [LinkedIn Company URL Finder](https://apidoc.cufinder.io/apis/company-linkedin-url-finder)
@@ -65,6 +65,10 @@ This SDK covers all 28 Cufinder API (v2) endpoints:
 - **CSN** - [Company Snapshot](https://apidoc.cufinder.io/apis/company-snapshot)
 - **NAO** - [Phone Number Normalizer](https://apidoc.cufinder.io/apis/phone-number-normalizer)
 - **NAA** - [Address Normalizer](https://apidoc.cufinder.io/apis/address-normalizer)
+- **CEF** - [Company Employee Finder](https://apidoc.cufinder.io/apis/company-employee-finder)
+- **NAC** - [Company Name Normalizer](https://apidoc.cufinder.io/apis/company-name-normalizer)
+- **CAA** - [Company Activity API](https://apidoc.cufinder.io/apis/company-activity-api)
+- **CJA** - [Company Jobs API](https://apidoc.cufinder.io/apis/company-jobs-api)
 
 
 **CUF - Company Name to Domain**
@@ -331,6 +335,45 @@ result = client.naa('1095 avenue of the Americas, 6th Avenue ny 10036')
 print(result)
 ```
 
+**CEF - Company Employee Finder**
+
+Returns a list of employees for a given company.
+
+```python
+result = client.cef('cufinder', page=1)
+for emp in result.employees:
+    print(f"name: {emp.full_name}, title: {emp.job_title}")
+```
+
+**NAC - Company Name Normalizer**
+
+Normalizes a company name to its standard form.
+
+```python
+result = client.nac('Cufinder')
+print(result.company)
+```
+
+**CAA - Company Activity API**
+
+Returns company activities from LinkedIn.
+
+```python
+result = client.caa('cufinder', page=1)
+for act in result.activities:
+    print(f"headline: {act.activity_headline}, url: {act.activity_url}")
+```
+
+**CJA - Company Jobs API**
+
+Search for company jobs with various filters.
+
+```python
+result = client.cja(name='cufinder', page=1)
+for item in result.jobs:
+    print(f"company: {item.company.name}, job: {item.job.title}")
+```
+
 ## Error Handling
 
 The SDK provides comprehensive error handling with custom error types:
@@ -389,6 +432,7 @@ from cufinder import (
     CseParams,
     PseParams,
     LbsParams,
+    CjaParams,
 
     # Response types
     BaseResponse,
@@ -405,6 +449,11 @@ from cufinder import (
     CompanySearchResult,
     PersonSearchResult,
     LocalBusinessResult,
+    CefEmployee,
+    CaaActivity,
+    CjaCompany,
+    CjaJob,
+    CjaJobItem,
 
     # Error types
     CufinderError,

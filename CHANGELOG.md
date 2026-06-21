@@ -1,5 +1,13 @@
 # Cufinder Python SDK Changelog
 
+## 1.2.0 (June 21, 2025)
+
+#### Features
+- **New V2 API services**: Add new V2 services including `CEF`, `NAC`, `CAA` and `CJA`
+
+#### Documentation
+- **Updated README.md**: Add API reference for all new services
+
 ## 1.1.0 (January 31, 2025)
 
 #### Features
