@@ -4,21 +4,21 @@ from typing import List, Optional
 
 from .client import CufinderClient
 from .services import (
-    Cuf, Epp, Lbs, Dtc, Dte, Ntp, Rel, Fcl, Elf, Car, Fcc, Fts, Fwe, Tep, Enc, Cec, Clo, Cse, Pse, Lcuf, Bcd, Ccp, Isc, Cbc, Csc, Csn, Nao, Naa
+    Cuf, Epp, Lbs, Dtc, Dte, Ntp, Rel, Fcl, Elf, Car, Fcc, Fts, Fwe, Tep, Enc, Cec, Clo, Cse, Pse, Lcuf, Bcd, Ccp, Isc, Cbc, Csc, Csn, Nao, Naa, Cef, Nac, Caa, Cja
 )
-from .types import CseParams, PseParams, LbsParams
+from .types import CseParams, PseParams, LbsParams, CjaParams
 
 
 class Cufinder:
     """
     Main CUFinder SDK class.
     
-    Provides access to all 28 CUFinder API services with improved error handling,
+    Provides access to all 32 CUFinder API services with improved error handling,
     parameter validation, and response models that match the TypeScript SDK.
     
     Features:
-    - All 28 CUFinder services (CUF, LCUF, DTC, DTE, NTP, REL, FCL, ELF, CAR, 
-      FCC, FTS, EPP, FWE, TEP, ENC, CEC, CLO, CSE, PSE, LBS, BCD, CCP, ISC, CBC, CSC, CSN, NAO, NAA)
+    - All 32 CUFinder services (CUF, LCUF, DTC, DTE, NTP, REL, FCL, ELF, CAR, 
+      FCC, FTS, EPP, FWE, TEP, ENC, CEC, CLO, CSE, PSE, LBS, BCD, CCP, ISC, CBC, CSC, CSN, NAO, NAA, CEF, NAC, CAA, CJA)
     - Type-safe parameter classes for search services
     - Comprehensive error handling with specific exception types
     - Response models that match the TypeScript SDK exactly
@@ -116,6 +116,10 @@ class Cufinder:
         self._csn = Csn(self.client)
         self._nao = Nao(self.client)
         self._naa = Naa(self.client)
+        self._cef = Cef(self.client)
+        self._nac = Nac(self.client)
+        self._caa = Caa(self.client)
+        self._cja = Cja(self.client)
 
     # Company Services
     def cuf(self, company_name: str, country_code: str):
@@ -712,6 +716,91 @@ class Cufinder:
             ```
         """
         return self._naa.normalize_address(address)
+
+    def cef(self, query: str, page: int = None):
+        """
+        Get company employees.
+
+        Args:
+            query: Company name to find employees for
+            page: Page number for pagination
+
+        Returns:
+            CefResponse: Company employee information
+
+        Example:
+            ```python
+            result = client.cef('cufinder', 1)
+            for emp in result.employees:
+                print(f"name: {emp.full_name}, title: {emp.job_title}")
+            ```
+        """
+        return self._cef.find_company_employees(query, page)
+
+    def nac(self, company: str):
+        """
+        Normalize company name.
+
+        Args:
+            company: Company name to normalize
+
+        Returns:
+            NacResponse: Normalized company name
+
+        Example:
+            ```python
+            result = client.nac('Cufinder')
+            print(result.company)
+            ```
+        """
+        return self._nac.normalize_company_name(company)
+
+    def caa(self, query: str, page: int = None):
+        """
+        Get company activities.
+
+        Args:
+            query: Company name to get activities for
+            page: Page number for pagination
+
+        Returns:
+            CaaResponse: Company activities information
+
+        Example:
+            ```python
+            result = client.caa('cufinder', 1)
+            for act in result.activities:
+                print(act.activity_headline)
+            ```
+        """
+        return self._caa.get_company_activities(query, page)
+
+    def cja(self, name: str = None, country: str = None, state: str = None, city: str = None,
+            industry: str = None, employee_size: str = None, page: int = None):
+        """
+        Search company jobs.
+
+        Args:
+            name: Company name to search for
+            country: Country to filter by
+            state: State/Province to filter by
+            city: City to filter by
+            industry: Industry to filter by
+            employee_size: Employee size range
+            page: Page number for pagination
+
+        Returns:
+            CjaResponse: Company jobs information
+
+        Example:
+            ```python
+            result = client.cja(name='cufinder', page=1)
+            for item in result.jobs:
+                print(f"company: {item.company.name}, job: {item.job.title}")
+            ```
+        """
+        params = {k: v for k, v in locals().items() if k != 'self' and v is not None}
+        return self._cja.search_company_jobs(params if params else None)
 
     def get_client(self) -> CufinderClient:
         """
