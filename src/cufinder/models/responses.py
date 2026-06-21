@@ -2,7 +2,7 @@
 
 from typing import List, Optional, Union
 
-from .base import BaseResponse
+from .base import BaseModel, BaseResponse
 from .company import Company, CompanySearchResult, LocalBusinessResult, LookalikeCompany, FundraisingInfo, CloCompanyLocation, SnapshotModel
 from .person import Person, PersonSearchResult, TepPerson, CefEmployee
 
@@ -148,3 +148,28 @@ class CefResponse(BaseResponse):
 class NacResponse(BaseResponse):
     """NAC Response - Company Name Normalizer"""
     company: str
+
+
+class CaaActivity(BaseModel):
+    """CAA Activity model"""
+    activity_url: Optional[str] = None
+    activity_id: Optional[str] = None
+    author_name: Optional[str] = None
+    author_type: Optional[str] = None
+    author_url: Optional[str] = None
+    activity_comments_count: Optional[int] = None
+    activity_hashtags: Optional[List[str]] = None
+    activity_headline: Optional[str] = None
+    activity_images: Optional[List[str]] = None
+    activity_is_video: Optional[bool] = None
+    activity_posted_at: Optional[str] = None
+    activity_reactions_count: Optional[int] = None
+    activity_reposts_count: Optional[int] = None
+    activity_text: Optional[str] = None
+    activity_top_comments: Optional[List[str]] = None
+    activity_videos: Optional[List[str]] = None
+
+
+class CaaResponse(BaseResponse):
+    """CAA Response - Company Activity API"""
+    activities: List[CaaActivity]

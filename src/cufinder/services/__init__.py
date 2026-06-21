@@ -31,6 +31,7 @@ from .nao import Nao
 from .naa import Naa
 from .cef import Cef
 from .nac import Nac
+from .caa import Caa
 
 __all__ = [
     "BaseService",
@@ -64,4 +65,5 @@ __all__ = [
     "Naa",
     "Cef",
     "Nac",
+    "Caa",
 ]

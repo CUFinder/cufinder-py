@@ -4,7 +4,7 @@ from typing import List, Optional
 
 from .client import CufinderClient
 from .services import (
-    Cuf, Epp, Lbs, Dtc, Dte, Ntp, Rel, Fcl, Elf, Car, Fcc, Fts, Fwe, Tep, Enc, Cec, Clo, Cse, Pse, Lcuf, Bcd, Ccp, Isc, Cbc, Csc, Csn, Nao, Naa, Cef, Nac
+    Cuf, Epp, Lbs, Dtc, Dte, Ntp, Rel, Fcl, Elf, Car, Fcc, Fts, Fwe, Tep, Enc, Cec, Clo, Cse, Pse, Lcuf, Bcd, Ccp, Isc, Cbc, Csc, Csn, Nao, Naa, Cef, Nac, Caa
 )
 from .types import CseParams, PseParams, LbsParams
 
@@ -118,6 +118,7 @@ class Cufinder:
         self._naa = Naa(self.client)
         self._cef = Cef(self.client)
         self._nac = Nac(self.client)
+        self._caa = Caa(self.client)
 
     # Company Services
     def cuf(self, company_name: str, country_code: str):
@@ -752,6 +753,26 @@ class Cufinder:
             ```
         """
         return self._nac.normalize_company_name(company)
+
+    def caa(self, query: str, page: int = None):
+        """
+        Get company activities.
+
+        Args:
+            query: Company name to get activities for
+            page: Page number for pagination
+
+        Returns:
+            CaaResponse: Company activities information
+
+        Example:
+            ```python
+            result = client.caa('cufinder', 1)
+            for act in result.activities:
+                print(act.activity_headline)
+            ```
+        """
+        return self._caa.get_company_activities(query, page)
 
     def get_client(self) -> CufinderClient:
         """
