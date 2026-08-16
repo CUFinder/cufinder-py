@@ -144,3 +144,20 @@ class SnapshotModel(BaseModel):
     target_industries: List[str];
     target_personas: List[str];
     value_proposition: str | None
+
+
+class Signal(BaseModel):
+    """Signal model"""
+    name: Optional[str] = None
+    time_frame: Optional[int] = None
+    bucket: Optional[str] = None
+
+
+class ContactSignal(BaseModel):
+    """Contact Signal model"""
+    full_name: Optional[str] = None
+    current_job: Optional[dict] = None
+    company: Optional[dict] = None
+    location: Optional[dict] = None
+    social: Optional[dict] = None
+    signal: Optional[Signal] = None

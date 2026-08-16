@@ -285,3 +285,24 @@ class CjaParams:
     def to_dict(self) -> dict:
         """Convert to dictionary, excluding None values"""
         return {k: v for k, v in self.__dict__.items() if v is not None}
+
+
+class PsaParams:
+    """
+    PSA - Contact Signals API parameters.
+    """
+    def __init__(
+        self,
+        signal_name: Optional[str] = None,
+        time_frame: Optional[int] = None,
+        bucket: Optional[str] = None,
+        page: Optional[int] = None,
+    ):
+        self.signal_name = signal_name
+        self.time_frame = time_frame
+        self.bucket = bucket
+        self.page = page
+
+    def to_dict(self) -> dict:
+        """Convert to dictionary, excluding None values"""
+        return {k: v for k, v in self.__dict__.items() if v is not None}

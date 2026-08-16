@@ -3,7 +3,7 @@
 from typing import List, Optional, Union
 
 from .base import BaseModel, BaseResponse
-from .company import Company, CompanySearchResult, LocalBusinessResult, LookalikeCompany, FundraisingInfo, CloCompanyLocation, SnapshotModel
+from .company import Company, CompanySearchResult, LocalBusinessResult, LookalikeCompany, FundraisingInfo, CloCompanyLocation, SnapshotModel, Signal, ContactSignal
 from .person import Person, PersonSearchResult, TepPerson, CefEmployee
 
 
@@ -208,3 +208,8 @@ class CjaJobItem(BaseModel):
 class CjaResponse(BaseResponse):
     """CJA Response - Company Jobs API"""
     jobs: List[CjaJobItem]
+
+
+class PsaResponse(BaseResponse):
+    """PSA Response - Contact Signals API"""
+    contacts: List[ContactSignal]
