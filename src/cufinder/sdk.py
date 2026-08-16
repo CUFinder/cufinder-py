@@ -39,20 +39,21 @@ from .services import (
     Psa,
     Csa,
     Jca,
+    Clf
 )
-from .types import CseParams, PseParams, LbsParams, CjaParams, PsaParams, CsaParams, JcaParams
+from .types import CseParams, PseParams, LbsParams, CjaParams, PsaParams, CsaParams, JcaParams, ClfParams
 
 
 class Cufinder:
     """
     Main CUFinder SDK class.
     
-    Provides access to all 35 CUFinder API services with improved error handling,
+    Provides access to all 36 CUFinder API services with improved error handling,
     parameter validation, and response models that match the TypeScript SDK.
     
     Features:
-    - All 35 CUFinder services (CUF, LCUF, DTC, DTE, NTP, REL, FCL, ELF, CAR, 
-      FCC, FTS, EPP, FWE, TEP, ENC, CEC, CLO, CSE, PSE, LBS, BCD, CCP, ISC, CBC, CSC, CSN, NAO, NAA, CEF, NAC, CAA, CJA, PSA, CSA, JCA)
+    - All 36 CUFinder services (CUF, LCUF, DTC, DTE, NTP, REL, FCL, ELF, CAR, 
+      FCC, FTS, EPP, FWE, TEP, ENC, CEC, CLO, CSE, PSE, LBS, BCD, CCP, ISC, CBC, CSC, CSN, NAO, NAA, CEF, NAC, CAA, CJA, PSA, CSA, JCA, CLF)
     - Type-safe parameter classes for search services
     - Comprehensive error handling with specific exception types
     - Response models that match the TypeScript SDK exactly
@@ -157,6 +158,7 @@ class Cufinder:
         self._psa = Psa(self.client)
         self._csa = Csa(self.client)
         self._jca = Jca(self.client)
+        self._clf = Clf(self.client)
 
     # Company Services
     def cuf(self, company_name: str, country_code: str):
@@ -907,6 +909,26 @@ class Cufinder:
         """
         params = {k: v for k, v in locals().items() if k != 'self' and v is not None}
         return self._jca.get_job_changes(params if params else None)
+
+    def clf(self, query: str = None):
+        """
+        Find similar contacts based on a query.
+
+        Args:
+            query: Query to find lookalike contacts for
+
+        Returns:
+            ClfResponse: Contact lookalikes information
+
+        Example:
+            ```python
+            result = client.clf('linkedin.com/in/mortezaheydari1997')
+            for profile in result.profiles:
+                print(f"name: {profile.full_name}, company: {profile.company_name}")
+            ```
+        """
+        params = {k: v for k, v in locals().items() if k != 'self' and v is not None}
+        return self._clf.find_contact_lookalikes(params if params else None)
 
     def get_client(self) -> CufinderClient:
         """

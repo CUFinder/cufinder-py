@@ -189,3 +189,19 @@ class CefEmployee(BaseModel):
     company_country: Optional[str] = None
     company_state: Optional[str] = None
     company_city: Optional[str] = None
+
+class ClfProfile(Person):
+    """CLF Profile extends Person - Contact Lookalikes API"""
+    email: Optional[str] = None
+    phone: Optional[str] = None
+    experiences: Optional[List[dict]] = None
+    educations: Optional[List[dict]] = None
+    interests: Optional[List[str]] = None
+    skills: Optional[List[str]] = None
+    certifications: Optional[List[dict]] = None
+    projects: Optional[List[dict]] = None
+    publications: Optional[List[dict]] = None
+    recommendations: Optional[List[dict]] = None
+    service_offers: Optional[List[dict]] = None
+    volunteering: Optional[List[dict]] = None
+    languages: Optional[List[str]] = None

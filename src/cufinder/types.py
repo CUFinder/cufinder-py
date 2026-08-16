@@ -306,3 +306,60 @@ class PsaParams:
     def to_dict(self) -> dict:
         """Convert to dictionary, excluding None values"""
         return {k: v for k, v in self.__dict__.items() if v is not None}
+
+
+class CsaParams:
+    """
+    CSA - Company Signals API parameters.
+    """
+    def __init__(
+        self,
+        signal_name: Optional[str] = None,
+        time_frame: Optional[int] = None,
+        bucket: Optional[str] = None,
+        page: Optional[int] = None,
+    ):
+        self.signal_name = signal_name
+        self.time_frame = time_frame
+        self.bucket = bucket
+        self.page = page
+
+    def to_dict(self) -> dict:
+        """Convert to dictionary, excluding None values"""
+        return {k: v for k, v in self.__dict__.items() if v is not None}
+
+
+class JcaParams:
+    """
+    JCA - Job Changes API parameters.
+    """
+    def __init__(
+        self,
+        start_date: Optional[str] = None,
+        end_date: Optional[str] = None,
+        type: Optional[str] = None,
+        page: Optional[int] = None,
+    ):
+        self.start_date = start_date
+        self.end_date = end_date
+        self.type = type
+        self.page = page
+
+    def to_dict(self) -> dict:
+        """Convert to dictionary, excluding None values"""
+        return {k: v for k, v in self.__dict__.items() if v is not None}
+
+
+class ClfParams:
+    """
+    CLF - Contact Lookalikes API parameters.
+    """
+    def __init__(
+        self,
+        query: Optional[str] = None,
+    ):
+        self.query = query
+
+    def to_dict(self) -> dict:
+        """Convert to dictionary, excluding None values"""
+        return {k: v for k, v in self.__dict__.items() if v is not None}
