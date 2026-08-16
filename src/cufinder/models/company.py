@@ -1,6 +1,7 @@
 """Company-related data models."""
 
 from typing import List, Optional, Union
+from pydantic import Field
 from .base import BaseModel
 
 
@@ -159,5 +160,19 @@ class ContactSignal(BaseModel):
     current_job: Optional[dict] = None
     company: Optional[dict] = None
     location: Optional[dict] = None
+    social: Optional[dict] = None
+    signal: Optional[Signal] = None
+
+
+class CompanySignal(BaseModel):
+    """Company Signal model"""
+    name: Optional[str] = None
+    website: Optional[str] = None
+    domain: Optional[str] = None
+    employees: Optional[dict] = None
+    industry: Optional[str] = None
+    overview: Optional[str] = None
+    type: Optional[str] = None
+    main_location: Optional[dict] = None
     social: Optional[dict] = None
     signal: Optional[Signal] = None

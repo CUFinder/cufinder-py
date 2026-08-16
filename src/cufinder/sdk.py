@@ -37,6 +37,7 @@ from .services import (
     Caa,
     Cja,
     Psa,
+    Csa,
 )
 from .types import CseParams, PseParams, LbsParams, CjaParams, PsaParams, CsaParams, JcaParams, ClfParams
 
@@ -45,12 +46,12 @@ class Cufinder:
     """
     Main CUFinder SDK class.
     
-    Provides access to all 40 CUFinder API services with improved error handling,
+    Provides access to all 34 CUFinder API services with improved error handling,
     parameter validation, and response models that match the TypeScript SDK.
     
     Features:
-    - All 33 CUFinder services (CUF, LCUF, DTC, DTE, NTP, REL, FCL, ELF, CAR, 
-      FCC, FTS, EPP, FWE, TEP, ENC, CEC, CLO, CSE, PSE, LBS, BCD, CCP, ISC, CBC, CSC, CSN, NAO, NAA, CEF, NAC, CAA, CJA, PSA)
+    - All 34 CUFinder services (CUF, LCUF, DTC, DTE, NTP, REL, FCL, ELF, CAR, 
+      FCC, FTS, EPP, FWE, TEP, ENC, CEC, CLO, CSE, PSE, LBS, BCD, CCP, ISC, CBC, CSC, CSN, NAO, NAA, CEF, NAC, CAA, CJA, PSA, CSA)
     - Type-safe parameter classes for search services
     - Comprehensive error handling with specific exception types
     - Response models that match the TypeScript SDK exactly
@@ -153,6 +154,8 @@ class Cufinder:
         self._caa = Caa(self.client)
         self._cja = Cja(self.client)
         self._psa = Psa(self.client)
+        self._csa = Csa(self.client)
+        self._jca = Jca(self.client)
 
     # Company Services
     def cuf(self, company_name: str, country_code: str):
@@ -857,6 +860,29 @@ class Cufinder:
         """
         params = {k: v for k, v in locals().items() if k != 'self' and v is not None}
         return self._psa.get_contact_signals(params if params else None)
+
+    def csa(self, signal_name: str = None, time_frame: int = None, bucket: str = None, page: int = None):
+        """
+        Get companies based on signals.
+
+        Args:
+            signal_name: Signal name to search for
+            time_frame: Signal time frame (7, 30, 90 or 180 days)
+            bucket: Signal bucket (low, moderate, high or hyper)
+            page: Page number for pagination
+
+        Returns:
+            CsaResponse: Company signals information
+
+        Example:
+            ```python
+            result = client.csa(signal_name='employee_growth', time_frame=90, bucket='high', page=1)
+            for company in result.companies:
+                print(f"company: {company.name}, domain: {company.domain}")
+            ```
+        """
+        params = {k: v for k, v in locals().items() if k != 'self' and v is not None}
+        return self._csa.get_company_signals(params if params else None)
         
     def get_client(self) -> CufinderClient:
         """

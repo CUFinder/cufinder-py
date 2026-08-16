@@ -34,6 +34,7 @@ from .nac import Nac
 from .caa import Caa
 from .cja import Cja
 from .psa import Psa
+from .csa import Csa
 
 __all__ = [
     "BaseService",
@@ -70,4 +71,5 @@ __all__ = [
     "Caa",
     "Cja",
     "Psa",
+    "Csa",
 ]
