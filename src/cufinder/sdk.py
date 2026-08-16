@@ -38,20 +38,21 @@ from .services import (
     Cja,
     Psa,
     Csa,
+    Jca,
 )
-from .types import CseParams, PseParams, LbsParams, CjaParams, PsaParams, CsaParams, JcaParams, ClfParams
+from .types import CseParams, PseParams, LbsParams, CjaParams, PsaParams, CsaParams, JcaParams
 
 
 class Cufinder:
     """
     Main CUFinder SDK class.
     
-    Provides access to all 34 CUFinder API services with improved error handling,
+    Provides access to all 35 CUFinder API services with improved error handling,
     parameter validation, and response models that match the TypeScript SDK.
     
     Features:
-    - All 34 CUFinder services (CUF, LCUF, DTC, DTE, NTP, REL, FCL, ELF, CAR, 
-      FCC, FTS, EPP, FWE, TEP, ENC, CEC, CLO, CSE, PSE, LBS, BCD, CCP, ISC, CBC, CSC, CSN, NAO, NAA, CEF, NAC, CAA, CJA, PSA, CSA)
+    - All 35 CUFinder services (CUF, LCUF, DTC, DTE, NTP, REL, FCL, ELF, CAR, 
+      FCC, FTS, EPP, FWE, TEP, ENC, CEC, CLO, CSE, PSE, LBS, BCD, CCP, ISC, CBC, CSC, CSN, NAO, NAA, CEF, NAC, CAA, CJA, PSA, CSA, JCA)
     - Type-safe parameter classes for search services
     - Comprehensive error handling with specific exception types
     - Response models that match the TypeScript SDK exactly
@@ -883,7 +884,30 @@ class Cufinder:
         """
         params = {k: v for k, v in locals().items() if k != 'self' and v is not None}
         return self._csa.get_company_signals(params if params else None)
-        
+
+    def jca(self, start_date: str = None, end_date: str = None, type: str = None, page: int = None):
+        """
+        Get job changes within a date range.
+
+        Args:
+            start_date: Start date (YYYY-MM-DD)
+            end_date: End date (YYYY-MM-DD)
+            type: Job change type (company_change, promotion, lateral_title_change or no_company_to_company)
+            page: Page number for pagination
+
+        Returns:
+            JcaResponse: Job changes information
+
+        Example:
+            ```python
+            result = client.jca(start_date='2026-01-01', end_date='2026-08-16', type='promotion')
+            for change in result.job_changes:
+                print(f"type: {change.type}, from: {change.from_.title}, to: {change.to.title}")
+            ```
+        """
+        params = {k: v for k, v in locals().items() if k != 'self' and v is not None}
+        return self._jca.get_job_changes(params if params else None)
+
     def get_client(self) -> CufinderClient:
         """
         Get the underlying HTTP client for advanced usage.

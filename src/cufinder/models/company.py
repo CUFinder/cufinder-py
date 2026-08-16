@@ -176,3 +176,20 @@ class CompanySignal(BaseModel):
     main_location: Optional[dict] = None
     social: Optional[dict] = None
     signal: Optional[Signal] = None
+
+
+class JobChangeCompanySnapshot(BaseModel):
+    """Job Change company snapshot model"""
+    company_linkedin_url: Optional[str] = None
+    company_linkedin_id: Optional[str] = None
+    company_name: Optional[str] = None
+    title: Optional[str] = None
+
+
+class JobChange(BaseModel):
+    """Job Change model"""
+    type: Optional[str] = None
+    linkedin_url: Optional[str] = None
+    detected_at: Optional[str] = None
+    from_: Optional[JobChangeCompanySnapshot] = Field(default=None, alias="from")
+    to: Optional[JobChangeCompanySnapshot] = None
