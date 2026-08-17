@@ -3,8 +3,8 @@
 from typing import List, Optional, Union
 
 from .base import BaseModel, BaseResponse
-from .company import Company, CompanySearchResult, LocalBusinessResult, LookalikeCompany, FundraisingInfo, CloCompanyLocation, SnapshotModel
-from .person import Person, PersonSearchResult, TepPerson, CefEmployee
+from .company import Company, CompanySearchResult, LocalBusinessResult, LookalikeCompany, FundraisingInfo, CloCompanyLocation, SnapshotModel, Signal, ContactSignal, CompanySignal, JobChange
+from .person import Person, PersonSearchResult, TepPerson, CefEmployee, ClfProfile
 
 
 class CufResponse(BaseResponse):
@@ -208,3 +208,43 @@ class CjaJobItem(BaseModel):
 class CjaResponse(BaseResponse):
     """CJA Response - Company Jobs API"""
     jobs: List[CjaJobItem]
+
+
+class PsaResponse(BaseResponse):
+    """PSA Response - Contact Signals API"""
+    contacts: List[ContactSignal]
+
+
+class CsaResponse(BaseResponse):
+    """CSA Response - Company Signals API"""
+    companies: List[CompanySignal]
+
+
+class JcaResponse(BaseResponse):
+    """JCA Response - Job Changes API"""
+    job_changes: List[JobChange]
+
+
+class ClfResponse(BaseResponse):
+    """CLF Response - Contact Lookalikes API"""
+    profiles: List[ClfProfile]
+
+
+class NapResponse(BaseResponse):
+    """NAP Response - Person Name Normalizer API"""
+    normalized_name: str
+
+
+class NauResponse(BaseResponse):
+    """NAU Response - URL Normalizer API"""
+    normalized_url: str
+
+
+class GdcResponse(BaseResponse):
+    """GDC Response - Gives Demo Checker API"""
+    offers_demo: str
+
+
+class CotResponse(BaseResponse):
+    """COT Response - Offers Free Trial Checker API"""
+    offers_free_trial: str

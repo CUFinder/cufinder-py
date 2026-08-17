@@ -33,6 +33,14 @@ from .cef import Cef
 from .nac import Nac
 from .caa import Caa
 from .cja import Cja
+from .psa import Psa
+from .csa import Csa
+from .jca import Jca
+from .clf import Clf
+from .nap import Nap
+from .nau import Nau
+from .gdc import Gdc
+from .cot import Cot
 
 __all__ = [
     "BaseService",
@@ -68,4 +76,12 @@ __all__ = [
     "Nac",
     "Caa",
     "Cja",
+    "Psa",
+    "Csa",
+    "Jca",
+    "Clf",
+    "Nap",
+    "Nau",
+    "Gdc",
+    "Cot",
 ]

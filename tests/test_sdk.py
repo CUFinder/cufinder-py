@@ -34,16 +34,16 @@ class TestCufinder:
         client = sdk.get_client()
         assert client.api_key == "test-key"
 
-    @patch('cufinder.client.requests.Session')
+    @patch('cufinder.base_api_client.requests.Session')
     def test_cuf_service(self, mock_session):
         """Test CUF service method."""
         # Mock response
         mock_response = Mock()
         mock_response.ok = True
+        mock_response.headers = {}
         mock_response.json.return_value = {
-            "domain": "techcorp.com",
-            "company_name": "TechCorp",
-            "confidence": 0.95
+            "query": "test",
+            "credit_count": 1,
         }
         mock_session.return_value.request.return_value = mock_response
 
@@ -54,22 +54,16 @@ class TestCufinder:
         assert result.company_name == "TechCorp"
         assert result.confidence == 0.95
 
-    @patch('cufinder.client.requests.Session')
+    @patch('cufinder.base_api_client.requests.Session')
     def test_epp_service(self, mock_session):
         """Test EPP service method."""
         # Mock response
         mock_response = Mock()
         mock_response.ok = True
+        mock_response.headers = {}
         mock_response.json.return_value = {
-            "person": {
-                "full_name": "John Doe",
-                "job_title": "Software Engineer"
-            },
-            "company": {
-                "name": "TechCorp",
-                "domain": "techcorp.com"
-            },
-            "confidence": 0.90
+            "query": "test",
+            "credit_count": 1,
         }
         mock_session.return_value.request.return_value = mock_response
 
@@ -81,19 +75,16 @@ class TestCufinder:
         assert result.company.name == "TechCorp"
         assert result.confidence == 0.90
 
-    @patch('cufinder.client.requests.Session')
+    @patch('cufinder.base_api_client.requests.Session')
     def test_lbs_service(self, mock_session):
         """Test LBS service method."""
         # Mock response
         mock_response = Mock()
         mock_response.ok = True
+        mock_response.headers = {}
         mock_response.json.return_value = {
-            "businesses": [
-                {"name": "Coffee Shop", "address": "123 Main St"},
-                {"name": "Restaurant", "address": "456 Oak Ave"}
-            ],
-            "total": 2,
-            "page": 1
+            "query": "test",
+            "credit_count": 1,
         }
         mock_session.return_value.request.return_value = mock_response
 
@@ -104,16 +95,16 @@ class TestCufinder:
         assert result.total_results == 2
         assert result.businesses[0]["name"] == "Coffee Shop"
 
-    @patch('cufinder.client.requests.Session')
+    @patch('cufinder.base_api_client.requests.Session')
     def test_dtc_service(self, mock_session):
         """Test DTC service method."""
         # Mock response
         mock_response = Mock()
         mock_response.ok = True
+        mock_response.headers = {}
         mock_response.json.return_value = {
-            "company_name": "Example Corp",
-            "company_website": "https://example.com",
-            "confidence": 0.85
+            "query": "test",
+            "credit_count": 1,
         }
         mock_session.return_value.request.return_value = mock_response
 
@@ -124,16 +115,16 @@ class TestCufinder:
         assert result.company_website == "https://example.com"
         assert result.confidence == 0.85
 
-    @patch('cufinder.client.requests.Session')
+    @patch('cufinder.base_api_client.requests.Session')
     def test_dte_service(self, mock_session):
         """Test DTE service method."""
         # Mock response
         mock_response = Mock()
         mock_response.ok = True
+        mock_response.headers = {}
         mock_response.json.return_value = {
-            "emails": ["contact@example.com", "info@example.com"],
-            "company_website": "https://example.com",
-            "confidence": 0.80
+            "query": "test",
+            "credit_count": 1,
         }
         mock_session.return_value.request.return_value = mock_response
 
@@ -144,16 +135,16 @@ class TestCufinder:
         assert "contact@example.com" in result.emails
         assert result.confidence == 0.80
 
-    @patch('cufinder.client.requests.Session')
+    @patch('cufinder.base_api_client.requests.Session')
     def test_ntp_service(self, mock_session):
         """Test NTP service method."""
         # Mock response
         mock_response = Mock()
         mock_response.ok = True
+        mock_response.headers = {}
         mock_response.json.return_value = {
-            "phones": ["+1-555-123-4567", "+1-555-987-6543"],
-            "company_name": "TechCorp",
-            "confidence": 0.75
+            "query": "test",
+            "credit_count": 1,
         }
         mock_session.return_value.request.return_value = mock_response
 
@@ -164,22 +155,16 @@ class TestCufinder:
         assert "+1-555-123-4567" in result.phones
         assert result.company_name == "TechCorp"
 
-    @patch('cufinder.client.requests.Session')
+    @patch('cufinder.base_api_client.requests.Session')
     def test_rel_service(self, mock_session):
         """Test REL service method."""
         # Mock response
         mock_response = Mock()
         mock_response.ok = True
+        mock_response.headers = {}
         mock_response.json.return_value = {
-            "person": {
-                "full_name": "Jane Smith",
-                "email": "jane@example.com"
-            },
-            "company": {
-                "name": "Example Corp",
-                "domain": "example.com"
-            },
-            "confidence": 0.88
+            "query": "test",
+            "credit_count": 1,
         }
         mock_session.return_value.request.return_value = mock_response
 
@@ -191,19 +176,14 @@ class TestCufinder:
         assert result.company.name == "Example Corp"
         assert result.confidence == 0.88
 
-    @patch('cufinder.client.requests.Session')
+    @patch('cufinder.base_api_client.requests.Session')
     def test_fcl_service(self, mock_session):
         """Test FCL service method."""
         # Mock response
         mock_response = Mock()
         mock_response.ok = True
+        mock_response.headers = {}
         mock_response.json.return_value = {
-            "lookalikes": [
-                {"name": "SimilarCorp", "similarity": 0.85},
-                {"name": "LikeCorp", "similarity": 0.78}
-            ],
-            "query": "TechCorp",
-            "total": 2
         }
         mock_session.return_value.request.return_value = mock_response
 
@@ -214,19 +194,14 @@ class TestCufinder:
         assert result.total == 2
         assert result.companies[0]["name"] == "SimilarCorp"
 
-    @patch('cufinder.client.requests.Session')
+    @patch('cufinder.base_api_client.requests.Session')
     def test_elf_service(self, mock_session):
         """Test ELF service method."""
         # Mock response
         mock_response = Mock()
         mock_response.ok = True
+        mock_response.headers = {}
         mock_response.json.return_value = {
-            "fundraising": {
-                "total_raised": "$10M",
-                "rounds": ["Series A", "Series B"]
-            },
-            "query": "TechCorp",
-            "confidence": 0.82
         }
         mock_session.return_value.request.return_value = mock_response
 
@@ -237,16 +212,14 @@ class TestCufinder:
         assert len(result.fundraising["rounds"]) == 2
         assert result.confidence == 0.82
 
-    @patch('cufinder.client.requests.Session')
+    @patch('cufinder.base_api_client.requests.Session')
     def test_car_service(self, mock_session):
         """Test CAR service method."""
         # Mock response
         mock_response = Mock()
         mock_response.ok = True
+        mock_response.headers = {}
         mock_response.json.return_value = {
-            "revenue": "$50M - $100M",
-            "query": "TechCorp",
-            "confidence": 0.75
         }
         mock_session.return_value.request.return_value = mock_response
 
@@ -257,19 +230,14 @@ class TestCufinder:
         assert result.query == "TechCorp"
         assert result.confidence == 0.75
 
-    @patch('cufinder.client.requests.Session')
+    @patch('cufinder.base_api_client.requests.Session')
     def test_fcc_service(self, mock_session):
         """Test FCC service method."""
         # Mock response
         mock_response = Mock()
         mock_response.ok = True
+        mock_response.headers = {}
         mock_response.json.return_value = {
-            "subsidiaries": [
-                {"name": "SubCorp1", "type": "subsidiary"},
-                {"name": "SubCorp2", "type": "subsidiary"}
-            ],
-            "query": "Alphabet Inc",
-            "total": 2
         }
         mock_session.return_value.request.return_value = mock_response
 
@@ -280,16 +248,14 @@ class TestCufinder:
         assert result.total == 2
         assert result.subsidiaries[0]["name"] == "SubCorp1"
 
-    @patch('cufinder.client.requests.Session')
+    @patch('cufinder.base_api_client.requests.Session')
     def test_fts_service(self, mock_session):
         """Test FTS service method."""
         # Mock response
         mock_response = Mock()
         mock_response.ok = True
+        mock_response.headers = {}
         mock_response.json.return_value = {
-            "tech_stack": ["Python", "React", "AWS", "Docker"],
-            "query": "TechCorp",
-            "confidence": 0.90
         }
         mock_session.return_value.request.return_value = mock_response
 
@@ -301,16 +267,16 @@ class TestCufinder:
         assert "React" in result.tech_stack
         assert result.confidence == 0.90
 
-    @patch('cufinder.client.requests.Session')
+    @patch('cufinder.base_api_client.requests.Session')
     def test_fwe_service(self, mock_session):
         """Test FWE service method."""
         # Mock response
         mock_response = Mock()
         mock_response.ok = True
+        mock_response.headers = {}
         mock_response.json.return_value = {
-            "email": "john.doe@example.com",
-            "profile_url": "https://linkedin.com/in/johndoe",
-            "confidence": 0.85
+            "query": "test",
+            "credit_count": 1,
         }
         mock_session.return_value.request.return_value = mock_response
 
@@ -321,20 +287,14 @@ class TestCufinder:
         assert result.profile_url == "https://linkedin.com/in/johndoe"
         assert result.confidence == 0.85
 
-    @patch('cufinder.client.requests.Session')
+    @patch('cufinder.base_api_client.requests.Session')
     def test_tep_service(self, mock_session):
         """Test TEP service method."""
         # Mock response
         mock_response = Mock()
         mock_response.ok = True
+        mock_response.headers = {}
         mock_response.json.return_value = {
-            "person": {
-                "full_name": "John Doe",
-                "job_title": "Software Engineer",
-                "company": "TechCorp"
-            },
-            "query": "John Doe",
-            "confidence": 0.88
         }
         mock_session.return_value.request.return_value = mock_response
 
@@ -346,20 +306,14 @@ class TestCufinder:
         assert result.person.company == "TechCorp"
         assert result.confidence == 0.88
 
-    @patch('cufinder.client.requests.Session')
+    @patch('cufinder.base_api_client.requests.Session')
     def test_enc_service(self, mock_session):
         """Test ENC service method."""
         # Mock response
         mock_response = Mock()
         mock_response.ok = True
+        mock_response.headers = {}
         mock_response.json.return_value = {
-            "company": {
-                "name": "TechCorp Inc",
-                "industry": "Technology",
-                "size": "100-500"
-            },
-            "query": "TechCorp",
-            "confidence": 0.92
         }
         mock_session.return_value.request.return_value = mock_response
 
@@ -371,16 +325,14 @@ class TestCufinder:
         assert result.company.size == "100-500"
         assert result.confidence == 0.92
 
-    @patch('cufinder.client.requests.Session')
+    @patch('cufinder.base_api_client.requests.Session')
     def test_cec_service(self, mock_session):
         """Test CEC service method."""
         # Mock response
         mock_response = Mock()
         mock_response.ok = True
+        mock_response.headers = {}
         mock_response.json.return_value = {
-            "countries": ["United States", "Canada", "United Kingdom"],
-            "query": "TechCorp",
-            "total": 3
         }
         mock_session.return_value.request.return_value = mock_response
 
@@ -392,19 +344,14 @@ class TestCufinder:
         assert "Canada" in result.countries
         assert result.total == 3
 
-    @patch('cufinder.client.requests.Session')
+    @patch('cufinder.base_api_client.requests.Session')
     def test_clo_service(self, mock_session):
         """Test CLO service method."""
         # Mock response
         mock_response = Mock()
         mock_response.ok = True
+        mock_response.headers = {}
         mock_response.json.return_value = {
-            "locations": [
-                {"city": "San Francisco", "country": "USA"},
-                {"city": "New York", "country": "USA"}
-            ],
-            "query": "TechCorp",
-            "total": 2
         }
         mock_session.return_value.request.return_value = mock_response
 
@@ -415,19 +362,16 @@ class TestCufinder:
         assert result.locations[0]["city"] == "San Francisco"
         assert result.total == 2
 
-    @patch('cufinder.client.requests.Session')
+    @patch('cufinder.base_api_client.requests.Session')
     def test_cse_service(self, mock_session):
         """Test CSE service method."""
         # Mock response
         mock_response = Mock()
         mock_response.ok = True
+        mock_response.headers = {}
         mock_response.json.return_value = {
-            "companies": [
-                {"name": "TechCorp", "industry": "Software"},
-                {"name": "DataCorp", "industry": "Analytics"}
-            ],
-            "total": 2,
-            "page": 1
+            "query": "test",
+            "credit_count": 1,
         }
         mock_session.return_value.request.return_value = mock_response
 
@@ -438,19 +382,16 @@ class TestCufinder:
         assert result.total_results == 2
         assert result.companies[0]["name"] == "TechCorp"
 
-    @patch('cufinder.client.requests.Session')
+    @patch('cufinder.base_api_client.requests.Session')
     def test_pse_service(self, mock_session):
         """Test PSE service method."""
         # Mock response
         mock_response = Mock()
         mock_response.ok = True
+        mock_response.headers = {}
         mock_response.json.return_value = {
-            "people": [
-                {"name": "John Doe", "title": "Software Engineer"},
-                {"name": "Jane Smith", "title": "Product Manager"}
-            ],
-            "total": 2,
-            "page": 1
+            "query": "test",
+            "credit_count": 1,
         }
         mock_session.return_value.request.return_value = mock_response
 
@@ -461,16 +402,16 @@ class TestCufinder:
         assert result.total_results == 2
         assert result.people[0]["name"] == "John Doe"
 
-    @patch('cufinder.client.requests.Session')
+    @patch('cufinder.base_api_client.requests.Session')
     def test_lcuf_service(self, mock_session):
         """Test LCUF service method."""
         # Mock response
         mock_response = Mock()
         mock_response.ok = True
+        mock_response.headers = {}
         mock_response.json.return_value = {
-            "linkedin_url": "https://linkedin.com/company/techcorp",
-            "company_name": "TechCorp",
-            "confidence": 0.95
+            "query": "test",
+            "credit_count": 1,
         }
         mock_session.return_value.request.return_value = mock_response
 
@@ -480,3 +421,166 @@ class TestCufinder:
         assert result.linkedin_url == "https://linkedin.com/company/techcorp"
         assert result.company_name == "TechCorp"
         assert result.confidence == 0.95
+
+    @patch('cufinder.base_api_client.requests.Session')
+    def test_psa_service(self, mock_session):
+        """Test PSA service method."""
+        mock_response = Mock()
+        mock_response.ok = True
+        mock_response.headers = {}
+        mock_response.json.return_value = {
+        }
+        mock_session.return_value.request.return_value = mock_response
+
+        sdk = Cufinder(api_key="test-key")
+        result = sdk.psa(signal_name="employee_growth", time_frame=90, bucket="high", page=1)
+
+        assert len(result.contacts) == 1
+        assert result.contacts[0].full_name == "John Doe"
+        assert result.contacts[0].current_job["title"] == "Software Engineer"
+        assert result.contacts[0].company["name"] == "TechCorp"
+        assert result.contacts[0].signal.name == "employee_growth"
+        assert result.contacts[0].signal.time_frame == 90
+        assert result.contacts[0].signal.bucket == "high"
+        assert result.credit_count == 1
+
+    @patch('cufinder.base_api_client.requests.Session')
+    def test_csa_service(self, mock_session):
+        """Test CSA service method."""
+        mock_response = Mock()
+        mock_response.ok = True
+        mock_response.headers = {}
+        mock_response.json.return_value = {
+        }
+        mock_session.return_value.request.return_value = mock_response
+
+        sdk = Cufinder(api_key="test-key")
+        result = sdk.csa(signal_name="employee_growth", time_frame=90, bucket="high", page=1)
+
+        assert len(result.companies) == 1
+        assert result.companies[0].name == "TechCorp"
+        assert result.companies[0].domain == "techcorp.com"
+        assert result.companies[0].employees["range"] == "1001-5000"
+        assert result.companies[0].signal.name == "employee_growth"
+        assert result.companies[0].signal.bucket == "high"
+        assert result.credit_count == 1
+
+    @patch('cufinder.base_api_client.requests.Session')
+    def test_jca_service(self, mock_session):
+        """Test JCA service method."""
+        mock_response = Mock()
+        mock_response.ok = True
+        mock_response.headers = {}
+        mock_response.json.return_value = {
+        }
+        mock_session.return_value.request.return_value = mock_response
+
+        sdk = Cufinder(api_key="test-key")
+        result = sdk.jca(start_date="2026-01-01", end_date="2026-08-16", type="promotion")
+
+        assert len(result.job_changes) == 1
+        assert result.job_changes[0].type == "promotion"
+        assert result.job_changes[0].from_.company_name == "TechCorp"
+        assert result.job_changes[0].from_.title == "Software Engineer"
+        assert result.job_changes[0].to.title == "Senior Software Engineer"
+        assert result.credit_count == 1
+
+    @patch('cufinder.base_api_client.requests.Session')
+    def test_clf_service(self, mock_session):
+        """Test CLF service method."""
+        mock_response = Mock()
+        mock_response.ok = True
+        mock_response.headers = {}
+        mock_response.json.return_value = {
+            "query": "linkedin.com/in/mortezaheydari1997",
+            "profiles": [
+                {
+                    "full_name": "Morteza Heydari",
+                    "linkedin_url": "https://linkedin.com/in/mortezaheydari1997",
+                    "job_title": "Founder & CEO",
+                    "company_name": "CUFinder",
+                    "languages": [
+                        {"name": "türkçe", "proficiency": "-"},
+                        {"name": "i̇ngilizce", "proficiency": "-"},
+                    ],
+                }
+            ],
+            "credit_count": 1,
+        }
+        mock_session.return_value.request.return_value = mock_response
+
+        sdk = Cufinder(api_key="test-key")
+        result = sdk.clf(query="linkedin.com/in/mortezaheydari1997")
+
+        assert len(result.profiles) == 1
+        assert result.profiles[0].full_name == "Morteza Heydari"
+        assert result.profiles[0].linkedin_url == "https://linkedin.com/in/mortezaheydari1997"
+        assert result.profiles[0].job_title == "Founder & CEO"
+        assert result.profiles[0].company_name == "CUFinder"
+        assert result.profiles[0].languages[0]["name"] == "türkçe"
+        assert result.profiles[0].languages[1]["proficiency"] == "-"
+        assert result.credit_count == 1
+
+    @patch('cufinder.base_api_client.requests.Session')
+    def test_nap_service(self, mock_session):
+        """Test NAP service method."""
+        mock_response = Mock()
+        mock_response.ok = True
+        mock_response.headers = {}
+        mock_response.json.return_value = {
+        }
+        mock_session.return_value.request.return_value = mock_response
+
+        sdk = Cufinder(api_key="test-key")
+        result = sdk.nap("morteza heydari")
+
+        assert result.normalized_name == "Morteza Heydari"
+        assert result.credit_count == 1
+
+    @patch('cufinder.base_api_client.requests.Session')
+    def test_nau_service(self, mock_session):
+        """Test NAU service method."""
+        mock_response = Mock()
+        mock_response.ok = True
+        mock_response.headers = {}
+        mock_response.json.return_value = {
+        }
+        mock_session.return_value.request.return_value = mock_response
+
+        sdk = Cufinder(api_key="test-key")
+        result = sdk.nau("https://www.cufinder.io/about-us")
+
+        assert result.normalized_url == "https://www.cufinder.io/about-us"
+        assert result.credit_count == 1
+
+    @patch('cufinder.base_api_client.requests.Session')
+    def test_gdc_service(self, mock_session):
+        """Test GDC service method."""
+        mock_response = Mock()
+        mock_response.ok = True
+        mock_response.headers = {}
+        mock_response.json.return_value = {
+        }
+        mock_session.return_value.request.return_value = mock_response
+
+        sdk = Cufinder(api_key="test-key")
+        result = sdk.gdc("https://www.stripe.com")
+
+        assert result.offers_demo == "yes"
+        assert result.credit_count == 1
+
+    @patch('cufinder.base_api_client.requests.Session')
+    def test_cot_service(self, mock_session):
+        """Test COT service method."""
+        mock_response = Mock()
+        mock_response.ok = True
+        mock_response.headers = {}
+        mock_response.json.return_value = {
+        }
+        mock_session.return_value.request.return_value = mock_response
+
+        sdk = Cufinder(api_key="test-key")
+        result = sdk.cot("https://www.stripe.com")
+
+        assert result.offers_free_trial == "yes"
+        assert result.credit_count == 1

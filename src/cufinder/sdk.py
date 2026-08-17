@@ -4,21 +4,60 @@ from typing import List, Optional
 
 from .client import CufinderClient
 from .services import (
-    Cuf, Epp, Lbs, Dtc, Dte, Ntp, Rel, Fcl, Elf, Car, Fcc, Fts, Fwe, Tep, Enc, Cec, Clo, Cse, Pse, Lcuf, Bcd, Ccp, Isc, Cbc, Csc, Csn, Nao, Naa, Cef, Nac, Caa, Cja
+    Cuf,
+    Epp,
+    Lbs,
+    Dtc,
+    Dte,
+    Ntp,
+    Rel,
+    Fcl,
+    Elf,
+    Car,
+    Fcc,
+    Fts,
+    Fwe,
+    Tep,
+    Enc,
+    Cec,
+    Clo,
+    Cse,
+    Pse,
+    Lcuf,
+    Bcd,
+    Ccp,
+    Isc,
+    Cbc,
+    Csc,
+    Csn,
+    Nao,
+    Naa,
+    Cef,
+    Nac,
+    Caa,
+    Cja,
+    Psa,
+    Csa,
+    Jca,
+    Clf,
+    Nap,
+    Nau,
+    Gdc,
+    Cot
 )
-from .types import CseParams, PseParams, LbsParams, CjaParams
+from .types import CseParams, PseParams, LbsParams, CjaParams, PsaParams, CsaParams, JcaParams, ClfParams
 
 
 class Cufinder:
     """
     Main CUFinder SDK class.
     
-    Provides access to all 32 CUFinder API services with improved error handling,
+    Provides access to all 40 CUFinder API services with improved error handling,
     parameter validation, and response models that match the TypeScript SDK.
     
     Features:
-    - All 32 CUFinder services (CUF, LCUF, DTC, DTE, NTP, REL, FCL, ELF, CAR, 
-      FCC, FTS, EPP, FWE, TEP, ENC, CEC, CLO, CSE, PSE, LBS, BCD, CCP, ISC, CBC, CSC, CSN, NAO, NAA, CEF, NAC, CAA, CJA)
+    - All 40 CUFinder services (CUF, LCUF, DTC, DTE, NTP, REL, FCL, ELF, CAR, 
+      FCC, FTS, EPP, FWE, TEP, ENC, CEC, CLO, CSE, PSE, LBS, BCD, CCP, ISC, CBC, CSC, CSN, NAO, NAA, CEF, NAC, CAA, CJA, PSA, CSA, JCA, CLF, NAP, NAU, GDC, COT)
     - Type-safe parameter classes for search services
     - Comprehensive error handling with specific exception types
     - Response models that match the TypeScript SDK exactly
@@ -120,6 +159,14 @@ class Cufinder:
         self._nac = Nac(self.client)
         self._caa = Caa(self.client)
         self._cja = Cja(self.client)
+        self._psa = Psa(self.client)
+        self._csa = Csa(self.client)
+        self._jca = Jca(self.client)
+        self._clf = Clf(self.client)
+        self._nap = Nap(self.client)
+        self._nau = Nau(self.client)
+        self._gdc = Gdc(self.client)
+        self._cot = Cot(self.client)
 
     # Company Services
     def cuf(self, company_name: str, country_code: str):
@@ -801,6 +848,167 @@ class Cufinder:
         """
         params = {k: v for k, v in locals().items() if k != 'self' and v is not None}
         return self._cja.search_company_jobs(params if params else None)
+
+    def psa(self, signal_name: str = None, time_frame: int = None, bucket: str = None, page: int = None):
+        """
+        Get contacts based on company signals.
+
+        Args:
+            signal_name: Signal name to search for
+            time_frame: Signal time frame (7, 30, 90 or 180 days)
+            bucket: Signal bucket (low, moderate, high or hyper)
+            page: Page number for pagination
+
+        Returns:
+            PsaResponse: Contact signals information
+
+        Example:
+            ```python
+            result = client.psa(signal_name='employee_growth', time_frame=90, bucket='high', page=1)
+            for contact in result.contacts:
+                print(f"name: {contact.full_name}, company: {contact.company.name}")
+            ```
+        """
+        params = {k: v for k, v in locals().items() if k != 'self' and v is not None}
+        return self._psa.get_contact_signals(params if params else None)
+
+    def csa(self, signal_name: str = None, time_frame: int = None, bucket: str = None, page: int = None):
+        """
+        Get companies based on signals.
+
+        Args:
+            signal_name: Signal name to search for
+            time_frame: Signal time frame (7, 30, 90 or 180 days)
+            bucket: Signal bucket (low, moderate, high or hyper)
+            page: Page number for pagination
+
+        Returns:
+            CsaResponse: Company signals information
+
+        Example:
+            ```python
+            result = client.csa(signal_name='employee_growth', time_frame=90, bucket='high', page=1)
+            for company in result.companies:
+                print(f"company: {company.name}, domain: {company.domain}")
+            ```
+        """
+        params = {k: v for k, v in locals().items() if k != 'self' and v is not None}
+        return self._csa.get_company_signals(params if params else None)
+
+    def jca(self, start_date: str = None, end_date: str = None, type: str = None, page: int = None):
+        """
+        Get job changes within a date range.
+
+        Args:
+            start_date: Start date (YYYY-MM-DD)
+            end_date: End date (YYYY-MM-DD)
+            type: Job change type (company_change, promotion, lateral_title_change or no_company_to_company)
+            page: Page number for pagination
+
+        Returns:
+            JcaResponse: Job changes information
+
+        Example:
+            ```python
+            result = client.jca(start_date='2026-01-01', end_date='2026-08-16', type='promotion')
+            for change in result.job_changes:
+                print(f"type: {change.type}, from: {change.from_.title}, to: {change.to.title}")
+            ```
+        """
+        params = {k: v for k, v in locals().items() if k != 'self' and v is not None}
+        return self._jca.get_job_changes(params if params else None)
+
+    def clf(self, query: str = None):
+        """
+        Find similar contacts based on a query.
+
+        Args:
+            query: Query to find lookalike contacts for
+
+        Returns:
+            ClfResponse: Contact lookalikes information
+
+        Example:
+            ```python
+            result = client.clf('linkedin.com/in/mortezaheydari1997')
+            for profile in result.profiles:
+                print(f"name: {profile.full_name}, company: {profile.company_name}")
+            ```
+        """
+        params = {k: v for k, v in locals().items() if k != 'self' and v is not None}
+        return self._clf.find_contact_lookalikes(params if params else None)
+
+    def nap(self, person_name: str):
+        """
+        Normalize a person name.
+
+        Args:
+            person_name: Person name to normalize
+
+        Returns:
+            NapResponse: Normalized person name
+
+        Example:
+            ```python
+            result = client.nap('morteza heydari')
+            print(result.normalized_name)
+            ```
+        """
+        return self._nap.normalize_person_name(person_name)
+
+    def nau(self, url: str):
+        """
+        Normalize a URL.
+
+        Args:
+            url: URL to normalize
+
+        Returns:
+            NauResponse: Normalized URL
+
+        Example:
+            ```python
+            result = client.nau('https://www.cufinder.io/about-us')
+            print(result.normalized_url)
+            ```
+        """
+        return self._nau.normalize_url(url)
+
+    def gdc(self, url: str):
+        """
+        Check if a company offers demos.
+
+        Args:
+            url: Company website URL
+
+        Returns:
+            GdcResponse: Whether the company gives demos
+
+        Example:
+            ```python
+            result = client.gdc('https://www.stripe.com')
+            print(result.offers_demo)
+            ```
+        """
+        return self._gdc.gives_demo(url)
+
+    def cot(self, url: str):
+        """
+        Check if a company offers a free trial.
+
+        Args:
+            url: Company website URL
+
+        Returns:
+            CotResponse: Whether the company offers a free trial
+
+        Example:
+            ```python
+            result = client.cot('https://www.stripe.com')
+            print(result.offers_free_trial)
+            ```
+        """
+        return self._cot.offers_free_trial(url)
 
     def get_client(self) -> CufinderClient:
         """

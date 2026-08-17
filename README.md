@@ -35,7 +35,7 @@ client = Cufinder('your-api-key-here', timeout=60)
 
 ## API Reference
 
-This SDK covers all 32 Cufinder API (v2) endpoints:
+This SDK covers all 40 Cufinder API (v2) endpoints:
 
 - **CUF** - [Company Name to Domain](https://apidoc.cufinder.io/apis/company-name-to-domain)
 - **LCUF** - [LinkedIn Company URL Finder](https://apidoc.cufinder.io/apis/company-linkedin-url-finder)
@@ -69,6 +69,14 @@ This SDK covers all 32 Cufinder API (v2) endpoints:
 - **NAC** - [Company Name Normalizer](https://apidoc.cufinder.io/apis/company-name-normalizer)
 - **CAA** - [Company Activity API](https://apidoc.cufinder.io/apis/company-activity-api)
 - **CJA** - [Company Jobs API](https://apidoc.cufinder.io/apis/company-jobs-api)
+- **PSA** - [Contact Signals API](https://apidoc.cufinder.io/apis/contact-signals-api)
+- **CSA** - [Company Signals API](https://apidoc.cufinder.io/apis/company-signals-api)
+- **JCA** - [Job Changes API](https://apidoc.cufinder.io/apis/job-changes-api)
+- **CLF** - [Contact Lookalikes API](https://apidoc.cufinder.io/apis/contact-lookalikes-api)
+- **NAP** - [Person Name Normalizer](https://apidoc.cufinder.io/apis/person-name-normalizer)
+- **NAU** - [URL Normalizer](https://apidoc.cufinder.io/apis/url-normalizer)
+- **GDC** - [Gives Demo Checker](https://apidoc.cufinder.io/apis/gives-demo-checker)
+- **COT** - [Offers Free Trial Checker](https://apidoc.cufinder.io/apis/offers-free-trial-checker)
 
 
 **CUF - Company Name to Domain**
@@ -372,6 +380,82 @@ Search for company jobs with various filters.
 result = client.cja(name='cufinder', page=1)
 for item in result.jobs:
     print(f"company: {item.company.name}, job: {item.job.title}")
+```
+
+**PSA - Contact Signals API**
+
+Find contacts based on company signals.
+
+```python
+result = client.psa(signal_name='employee_growth', time_frame=90, bucket='high', page=1)
+for contact in result.contacts:
+    print(f"name: {contact.full_name}, company: {contact.company['name']}, job: {contact.current_job['title']}")
+```
+
+**CSA - Company Signals API**
+
+Find companies based on signals.
+
+```python
+result = client.csa(signal_name='employee_growth', time_frame=90, bucket='high', page=1)
+for company in result.companies:
+    print(f"company: {company.name}, domain: {company.domain}")
+```
+
+**JCA - Job Changes API**
+
+Find job changes within a date range.
+
+```python
+result = client.jca(start_date='2026-01-01', end_date='2026-08-16', type='promotion')
+for change in result.job_changes:
+    print(f"type: {change.type}, from: {change.from_.title}, to: {change.to.title}")
+```
+
+**CLF - Contact Lookalikes API**
+
+Find similar contacts based on a query.
+
+```python
+result = client.clf(query='linkedin.com/in/mortezaheydari1997')
+for profile in result.profiles:
+    print(f"name: {profile.full_name}, company: {profile.company_name}")
+```
+
+**NAP - Person Name Normalizer**
+
+Normalize a person name.
+
+```python
+result = client.nap('morteza heydari')
+print(result.normalized_name)
+```
+
+**NAU - URL Normalizer**
+
+Normalize a URL.
+
+```python
+result = client.nau('https://www.cufinder.io/about-us')
+print(result.normalized_url)
+```
+
+**GDC - Gives Demo Checker**
+
+Check if a company offers demos.
+
+```python
+result = client.gdc('https://www.stripe.com')
+print(result.offers_demo)
+```
+
+**COT - Offers Free Trial Checker**
+
+Check if a company offers a free trial.
+
+```python
+result = client.cot('https://www.stripe.com')
+print(result.offers_free_trial)
 ```
 
 ## Error Handling
