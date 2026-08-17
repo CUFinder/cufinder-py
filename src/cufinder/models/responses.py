@@ -4,7 +4,7 @@ from typing import List, Optional, Union
 
 from .base import BaseModel, BaseResponse
 from .company import Company, CompanySearchResult, LocalBusinessResult, LookalikeCompany, FundraisingInfo, CloCompanyLocation, SnapshotModel, Signal, ContactSignal, CompanySignal, JobChange
-from .person import Person, PersonSearchResult, TepPerson, CefEmployee
+from .person import Person, PersonSearchResult, TepPerson, CefEmployee, ClfProfile
 
 
 class CufResponse(BaseResponse):
@@ -223,3 +223,13 @@ class CsaResponse(BaseResponse):
 class JcaResponse(BaseResponse):
     """JCA Response - Job Changes API"""
     job_changes: List[JobChange]
+
+
+class ClfResponse(BaseResponse):
+    """CLF Response - Contact Lookalikes API"""
+    profiles: List[ClfProfile]
+
+
+class NapResponse(BaseResponse):
+    """NAP Response - Person Name Normalizer API"""
+    normalized_name: str

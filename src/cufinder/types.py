@@ -363,3 +363,19 @@ class ClfParams:
     def to_dict(self) -> dict:
         """Convert to dictionary, excluding None values"""
         return {k: v for k, v in self.__dict__.items() if v is not None}
+
+
+class NapParams:
+    """
+    NAP - Person Name Normalizer API parameters.
+    """
+    def __init__(
+        self,
+        person_name: Optional[str] = None,
+    ):
+        self.person_name = person_name
+
+    def to_dict(self) -> dict:
+        """Convert to dictionary, excluding None values"""
+        return {k: v for k, v in self.__dict__.items() if v is not None}
+

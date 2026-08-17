@@ -39,7 +39,8 @@ from .services import (
     Psa,
     Csa,
     Jca,
-    Clf
+    Clf,
+    Nap
 )
 from .types import CseParams, PseParams, LbsParams, CjaParams, PsaParams, CsaParams, JcaParams, ClfParams
 
@@ -48,12 +49,12 @@ class Cufinder:
     """
     Main CUFinder SDK class.
     
-    Provides access to all 36 CUFinder API services with improved error handling,
+    Provides access to all 37 CUFinder API services with improved error handling,
     parameter validation, and response models that match the TypeScript SDK.
     
     Features:
-    - All 36 CUFinder services (CUF, LCUF, DTC, DTE, NTP, REL, FCL, ELF, CAR, 
-      FCC, FTS, EPP, FWE, TEP, ENC, CEC, CLO, CSE, PSE, LBS, BCD, CCP, ISC, CBC, CSC, CSN, NAO, NAA, CEF, NAC, CAA, CJA, PSA, CSA, JCA, CLF)
+    - All 37 CUFinder services (CUF, LCUF, DTC, DTE, NTP, REL, FCL, ELF, CAR, 
+      FCC, FTS, EPP, FWE, TEP, ENC, CEC, CLO, CSE, PSE, LBS, BCD, CCP, ISC, CBC, CSC, CSN, NAO, NAA, CEF, NAC, CAA, CJA, PSA, CSA, JCA, CLF, NAP)
     - Type-safe parameter classes for search services
     - Comprehensive error handling with specific exception types
     - Response models that match the TypeScript SDK exactly
@@ -159,6 +160,7 @@ class Cufinder:
         self._csa = Csa(self.client)
         self._jca = Jca(self.client)
         self._clf = Clf(self.client)
+        self._nap = Nap(self.client)
 
     # Company Services
     def cuf(self, company_name: str, country_code: str):
@@ -929,6 +931,24 @@ class Cufinder:
         """
         params = {k: v for k, v in locals().items() if k != 'self' and v is not None}
         return self._clf.find_contact_lookalikes(params if params else None)
+
+    def nap(self, person_name: str):
+        """
+        Normalize a person name.
+
+        Args:
+            person_name: Person name to normalize
+
+        Returns:
+            NapResponse: Normalized person name
+
+        Example:
+            ```python
+            result = client.nap('morteza heydari')
+            print(result.normalized_name)
+            ```
+        """
+        return self._nap.normalize_person_name(person_name)
 
     def get_client(self) -> CufinderClient:
         """
