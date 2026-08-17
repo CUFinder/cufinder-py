@@ -233,3 +233,8 @@ class ClfResponse(BaseResponse):
 class NapResponse(BaseResponse):
     """NAP Response - Person Name Normalizer API"""
     normalized_name: str
+
+
+class NauResponse(BaseResponse):
+    """NAU Response - URL Normalizer API"""
+    normalized_url: str
