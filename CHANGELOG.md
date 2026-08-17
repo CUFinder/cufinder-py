@@ -1,5 +1,17 @@
 # Cufinder Python SDK Changelog
 
+## 1.3.0 (August 17, 2026)
+
+#### Features
+- **New V2 API services**: Add new V2 services including `PSA`, `CSA`, `JCA`, `CLF`, `NAP`, `NAU`, `GDC` and `COT`
+
+#### Documentation
+- **Updated README.md**: Add API reference for all new services
+
+
+
+
+
 ## 1.2.0 (June 21, 2025)
 
 #### Features
@@ -7,6 +19,10 @@
 
 #### Documentation
 - **Updated README.md**: Add API reference for all new services
+
+
+
+
 
 ## 1.1.0 (January 31, 2025)
 
@@ -16,6 +32,9 @@
 
 #### Documentation
 - **Updated README.md**: Add API reference for all new services
+
+
+
 
 
 ## 1.0.0 (November 4, 2025)
@@ -30,6 +49,8 @@
 
 #### Bug Fixes
 - Fixed parsing results from API responses for all services and improve error handling
+
+
 
 
 
@@ -58,6 +79,8 @@
 - Type-safe responses with IDE support
 - Configurable timeouts and retry logic
 - Production-ready error handling
+
+
 
 
 
