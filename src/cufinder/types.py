@@ -393,3 +393,18 @@ class NauParams:
     def to_dict(self) -> dict:
         """Convert to dictionary, excluding None values"""
         return {k: v for k, v in self.__dict__.items() if v is not None}
+
+
+class GdcParams:
+    """
+    GDC - Gives Demo Checker API parameters.
+    """
+    def __init__(
+        self,
+        url: Optional[str] = None,
+    ):
+        self.url = url
+
+    def to_dict(self) -> dict:
+        """Convert to dictionary, excluding None values"""
+        return {k: v for k, v in self.__dict__.items() if v is not None}

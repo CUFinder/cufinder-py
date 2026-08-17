@@ -39,6 +39,7 @@ from .jca import Jca
 from .clf import Clf
 from .nap import Nap
 from .nau import Nau
+from .gdc import Gdc
 
 __all__ = [
     "BaseService",
@@ -80,4 +81,5 @@ __all__ = [
     "Clf",
     "Nap",
     "Nau",
+    "Gdc",
 ]

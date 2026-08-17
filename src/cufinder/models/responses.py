@@ -238,3 +238,8 @@ class NapResponse(BaseResponse):
 class NauResponse(BaseResponse):
     """NAU Response - URL Normalizer API"""
     normalized_url: str
+
+
+class GdcResponse(BaseResponse):
+    """GDC Response - Gives Demo Checker API"""
+    offers_demo: str

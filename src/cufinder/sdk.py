@@ -41,7 +41,8 @@ from .services import (
     Jca,
     Clf,
     Nap,
-    Nau
+    Nau,
+    Gdc
 )
 from .types import CseParams, PseParams, LbsParams, CjaParams, PsaParams, CsaParams, JcaParams, ClfParams
 
@@ -50,12 +51,12 @@ class Cufinder:
     """
     Main CUFinder SDK class.
     
-    Provides access to all 38 CUFinder API services with improved error handling,
+    Provides access to all 39 CUFinder API services with improved error handling,
     parameter validation, and response models that match the TypeScript SDK.
     
     Features:
-    - All 38 CUFinder services (CUF, LCUF, DTC, DTE, NTP, REL, FCL, ELF, CAR, 
-      FCC, FTS, EPP, FWE, TEP, ENC, CEC, CLO, CSE, PSE, LBS, BCD, CCP, ISC, CBC, CSC, CSN, NAO, NAA, CEF, NAC, CAA, CJA, PSA, CSA, JCA, CLF, NAP, NAU)
+    - All 39 CUFinder services (CUF, LCUF, DTC, DTE, NTP, REL, FCL, ELF, CAR, 
+      FCC, FTS, EPP, FWE, TEP, ENC, CEC, CLO, CSE, PSE, LBS, BCD, CCP, ISC, CBC, CSC, CSN, NAO, NAA, CEF, NAC, CAA, CJA, PSA, CSA, JCA, CLF, NAP, NAU, GDC)
     - Type-safe parameter classes for search services
     - Comprehensive error handling with specific exception types
     - Response models that match the TypeScript SDK exactly
@@ -163,6 +164,7 @@ class Cufinder:
         self._clf = Clf(self.client)
         self._nap = Nap(self.client)
         self._nau = Nau(self.client)
+        self._gdc = Gdc(self.client)
 
     # Company Services
     def cuf(self, company_name: str, country_code: str):
@@ -969,6 +971,24 @@ class Cufinder:
             ```
         """
         return self._nau.normalize_url(url)
+
+    def gdc(self, url: str):
+        """
+        Check if a company offers demos.
+
+        Args:
+            url: Company website URL
+
+        Returns:
+            GdcResponse: Whether the company gives demos
+
+        Example:
+            ```python
+            result = client.gdc('https://www.stripe.com')
+            print(result.offers_demo)
+            ```
+        """
+        return self._gdc.gives_demo(url)
 
     def get_client(self) -> CufinderClient:
         """
