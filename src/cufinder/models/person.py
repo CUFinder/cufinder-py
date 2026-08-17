@@ -204,4 +204,4 @@ class ClfProfile(Person):
     recommendations: Optional[List[dict]] = None
     service_offers: Optional[List[dict]] = None
     volunteering: Optional[List[dict]] = None
-    languages: Optional[List[str]] = None
+    languages: Optional[List[dict]] = None
