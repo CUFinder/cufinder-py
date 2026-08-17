@@ -243,3 +243,8 @@ class NauResponse(BaseResponse):
 class GdcResponse(BaseResponse):
     """GDC Response - Gives Demo Checker API"""
     offers_demo: str
+
+
+class CotResponse(BaseResponse):
+    """COT Response - Offers Free Trial Checker API"""
+    offers_free_trial: str

@@ -40,6 +40,7 @@ from .clf import Clf
 from .nap import Nap
 from .nau import Nau
 from .gdc import Gdc
+from .cot import Cot
 
 __all__ = [
     "BaseService",
@@ -82,4 +83,5 @@ __all__ = [
     "Nap",
     "Nau",
     "Gdc",
+    "Cot",
 ]

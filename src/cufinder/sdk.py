@@ -42,7 +42,8 @@ from .services import (
     Clf,
     Nap,
     Nau,
-    Gdc
+    Gdc,
+    Cot
 )
 from .types import CseParams, PseParams, LbsParams, CjaParams, PsaParams, CsaParams, JcaParams, ClfParams
 
@@ -51,12 +52,12 @@ class Cufinder:
     """
     Main CUFinder SDK class.
     
-    Provides access to all 39 CUFinder API services with improved error handling,
+    Provides access to all 40 CUFinder API services with improved error handling,
     parameter validation, and response models that match the TypeScript SDK.
     
     Features:
-    - All 39 CUFinder services (CUF, LCUF, DTC, DTE, NTP, REL, FCL, ELF, CAR, 
-      FCC, FTS, EPP, FWE, TEP, ENC, CEC, CLO, CSE, PSE, LBS, BCD, CCP, ISC, CBC, CSC, CSN, NAO, NAA, CEF, NAC, CAA, CJA, PSA, CSA, JCA, CLF, NAP, NAU, GDC)
+    - All 40 CUFinder services (CUF, LCUF, DTC, DTE, NTP, REL, FCL, ELF, CAR, 
+      FCC, FTS, EPP, FWE, TEP, ENC, CEC, CLO, CSE, PSE, LBS, BCD, CCP, ISC, CBC, CSC, CSN, NAO, NAA, CEF, NAC, CAA, CJA, PSA, CSA, JCA, CLF, NAP, NAU, GDC, COT)
     - Type-safe parameter classes for search services
     - Comprehensive error handling with specific exception types
     - Response models that match the TypeScript SDK exactly
@@ -165,6 +166,7 @@ class Cufinder:
         self._nap = Nap(self.client)
         self._nau = Nau(self.client)
         self._gdc = Gdc(self.client)
+        self._cot = Cot(self.client)
 
     # Company Services
     def cuf(self, company_name: str, country_code: str):
@@ -989,6 +991,24 @@ class Cufinder:
             ```
         """
         return self._gdc.gives_demo(url)
+
+    def cot(self, url: str):
+        """
+        Check if a company offers a free trial.
+
+        Args:
+            url: Company website URL
+
+        Returns:
+            CotResponse: Whether the company offers a free trial
+
+        Example:
+            ```python
+            result = client.cot('https://www.stripe.com')
+            print(result.offers_free_trial)
+            ```
+        """
+        return self._cot.offers_free_trial(url)
 
     def get_client(self) -> CufinderClient:
         """
